@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 @TeleOp
 public class FOMecanumTeleOp extends LinearOpMode {
     @Override
@@ -30,25 +32,26 @@ public class FOMecanumTeleOp extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y;
+            double y = gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-            double rx = gamepad1.right_stick_x;
+            double rx = -gamepad1.right_stick_x;
 
-            double botHeading = -imu.getAngularOrientation().firstAngle;
+            double angle = AngleUnit.RADIANS.normalize(-imu.getAngularOrientation().firstAngle + (Math.PI / 2));
 
-            double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
-            double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double flPower = 2 *(rotY + rotX + rx) / denominator;
-            double blPower = 2 *(rotY - rotX + rx) / denominator;
-            double frPower = 2 *(rotY - rotX - rx) / denominator;
-            double brPower = 2 *(rotY + rotX - rx) / denominator;
+            double rotX = x * Math.cos(angle) - y * Math.sin(angle);
+            double rotY = x * Math.sin(angle) + y * Math.cos(angle);
 
-            fl.setPower(flPower);
-            bl.setPower(blPower);
-            fr.setPower(frPower);
-            br.setPower(brPower);
+            double d = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+            double flPwr = (rotY + rotX + rx) / d;
+            double blPwr = (rotY - rotX + rx) / d;
+            double frPwr = (rotY - rotX - rx) / d;
+            double brPwr = (rotY + rotX - rx) / d;
+
+            fl.setPower(flPwr);
+            bl.setPower(blPwr);
+            fr.setPower(frPwr);
+            br.setPower(brPwr);
         }
     }
 }
