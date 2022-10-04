@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp
 public class FOMecanumTeleOp extends LinearOpMode {
+    String tdata = "";
     @Override
     public void runOpMode() throws InterruptedException {
         DcMotor fl = hardwareMap.dcMotor.get("fl");
@@ -24,7 +25,7 @@ public class FOMecanumTeleOp extends LinearOpMode {
         // Retrieve the IMU from the hardware map
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
         waitForStart();
@@ -36,7 +37,10 @@ public class FOMecanumTeleOp extends LinearOpMode {
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = -gamepad1.right_stick_x;
 
-            double angle = AngleUnit.RADIANS.normalize(-imu.getAngularOrientation().firstAngle + (Math.PI / 2));
+            double angle = AngleUnit.DEGREES.normalize(-imu.getAngularOrientation().firstAngle + 90);
+            tdata = tdata + "Angle: " + angle + "\n";
+            telemetry.addData(tdata);
+            telemetry.log();
 
 
             double rotX = x * Math.cos(angle) - y * Math.sin(angle);
