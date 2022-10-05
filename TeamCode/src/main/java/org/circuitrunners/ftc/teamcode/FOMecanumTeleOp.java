@@ -6,28 +6,23 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 @TeleOp
 public class FOMecanumTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        // Declare our motors
-        // Make sure your ID's match your configuration
-        DcMotor fl = hardwareMap.dcMotor.get("fl");
-        DcMotor bl = hardwareMap.dcMotor.get("bl");
-        DcMotor fr = hardwareMap.dcMotor.get("fr");
-        DcMotor br = hardwareMap.dcMotor.get("br");
+        DcMotor motorFrontLeft = hardwareMap.dcMotor.get("fl");
+        DcMotor motorBackLeft = hardwareMap.dcMotor.get("bl");
+        DcMotor motorFrontRight = hardwareMap.dcMotor.get("fr");
+        DcMotor motorBackRight = hardwareMap.dcMotor.get("br");
 
-        // Reverse the right side motors
-        // Reverse left motors if you are using NeveRests
-        fr.setDirection(DcMotorSimple.Direction.REVERSE);
-        br.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // Retrieve the IMU from the hardware map
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        // Technically this is the default, however specifying it is clearer
-        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
-        // Without this, data retrieving from the IMU throws an exception
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(parameters);
 
         waitForStart();
@@ -35,29 +30,25 @@ public class FOMecanumTeleOp extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-            double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+            double y = -gamepad1.left_stick_y;
+            double x = gamepad1.left_stick_x * 1.1;
             double rx = gamepad1.right_stick_x;
 
-            // Read inverse IMU heading, as the IMU heading is CW positive
-            double botHeading = -imu.getAngularOrientation().firstAngle;
+            double angle = -imu.getAngularOrientation().firstAngle;
 
-            double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
-            double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
+            double rotX = x * Math.cos(angle) - y * Math.sin(angle);
+            double rotY = x * Math.sin(angle) + y * Math.cos(angle);
 
-            // Denominator is the largest motor power (absolute value) or 1
-            // This ensures all the powers maintain the same ratio, but only when
-            // at least one is out of the range [-1, 1]
             double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double flPower = 2 *(rotY + rotX + rx) / denominator;
-            double blPower = 2 *(rotY - rotX + rx) / denominator;
-            double frPower = 2 *(rotY - rotX - rx) / denominator;
-            double brPower = 2 *(rotY + rotX - rx) / denominator;
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
 
-            fl.setPower(flPower);
-            bl.setPower(blPower);
-            fr.setPower(frPower);
-            br.setPower(brPower);
+            motorFrontLeft.setPower(frontLeftPower);
+            motorBackLeft.setPower(backLeftPower);
+            motorFrontRight.setPower(frontRightPower);
+            motorBackRight.setPower(backRightPower);
         }
     }
 }
