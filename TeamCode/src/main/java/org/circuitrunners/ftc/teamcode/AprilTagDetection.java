@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package org.openftc.apriltag;
+package org.circuitrunners.ftc.teamcode;
 
 import org.opencv.core.Point;
 
