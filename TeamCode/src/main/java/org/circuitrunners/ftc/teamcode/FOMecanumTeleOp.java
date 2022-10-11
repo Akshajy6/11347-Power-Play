@@ -12,13 +12,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class FOMecanumTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        DcMotor motorFrontLeft = hardwareMap.dcMotor.get("fl");
-        DcMotor motorBackLeft = hardwareMap.dcMotor.get("bl");
-        DcMotor motorFrontRight = hardwareMap.dcMotor.get("fr");
-        DcMotor motorBackRight = hardwareMap.dcMotor.get("br");
-
-        motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        DcMotor fl = hardwareMap.dcMotor.get("fl");
+        DcMotor bl = hardwareMap.dcMotor.get("bl");
+        DcMotor fr = hardwareMap.dcMotor.get("fr");
+        DcMotor br = hardwareMap.dcMotor.get("br");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -30,25 +27,25 @@ public class FOMecanumTeleOp extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y;
+            double y = gamepad1.left_stick_y;
             double x = gamepad1.left_stick_x * 1.1;
-            double rx = gamepad1.right_stick_x;
+            double rx = -gamepad1.right_stick_x;
 
             double angle = -imu.getAngularOrientation().firstAngle;
 
             double rotX = x * Math.cos(angle) - y * Math.sin(angle);
             double rotY = x * Math.sin(angle) + y * Math.cos(angle);
 
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (rotY + rotX + rx) / denominator;
-            double backLeftPower = (rotY - rotX + rx) / denominator;
-            double frontRightPower = (rotY - rotX - rx) / denominator;
-            double backRightPower = (rotY + rotX - rx) / denominator;
+            double d = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+            double flPwr = (rotY + rotX + rx) / d;
+            double frPwr = (rotY - rotX - rx) / d;
+            double blPwr = (rotY - rotX + rx) / d;
+            double brPwr = (rotY + rotX - rx) / d;
 
-            motorFrontLeft.setPower(frontLeftPower);
-            motorBackLeft.setPower(backLeftPower);
-            motorFrontRight.setPower(frontRightPower);
-            motorBackRight.setPower(backRightPower);
+            fl.setPower(flPwr);
+            fr.setPower(frPwr);
+            bl.setPower(blPwr);
+            br.setPower(brPwr);
         }
     }
 }
