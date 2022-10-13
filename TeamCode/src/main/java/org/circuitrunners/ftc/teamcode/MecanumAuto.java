@@ -21,6 +21,8 @@
 
 package org.circuitrunners.ftc.teamcode;
 
+import android.annotation.SuppressLint;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -99,6 +101,7 @@ public class MecanumAuto extends LinearOpMode
             }}
         }
 
+        @SuppressLint("DefaultLocale")
         void tagToTelemetry(AprilTagDetection detection)
         {
             telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
