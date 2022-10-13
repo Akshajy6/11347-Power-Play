@@ -24,11 +24,16 @@ public class Mecanum {
         imu.initialize(parameters);
     }
 
-    public void Drive(double y, double x, double rx, boolean p, boolean c) {
+    public boolean drive(double y, double x, double rx, boolean p, boolean c) {
         double angle = -imu.getAngularOrientation().firstAngle + 90;
 
+        //Recalibrate imu angle
+        if (!p && c) {
+            angle = 0;
+            return true;
+        }
 
-
+        //Mecanum math
         double rotX = x * Math.cos(angle) - y * Math.sin(angle);
         double rotY = x * Math.sin(angle) + y * Math.cos(angle);
 
@@ -42,6 +47,7 @@ public class Mecanum {
         fr.setPower(frPwr);
         bl.setPower(blPwr);
         br.setPower(brPwr);
+        return false; //Angle not recalibrated
     }
 
 }
