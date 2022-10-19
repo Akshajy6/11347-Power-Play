@@ -1,6 +1,7 @@
 package org.circuitrunners.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+
 public class KiwiDrive {
     private DcMotor[] motors = new DcMotor[3];
 
@@ -33,6 +34,13 @@ public class KiwiDrive {
             motors[1].setPower(rotPower);
             motors[2].setPower(rotPower);
         }
+        else{
+            motors[0].setPower(0);
+            motors[1].setPower(0);
+            motors[2].setPower(0);
+        }
+
+
 //        if (Math.abs(slidePower - 0) < 0.05)
 //        {
 //            if (leftPower > 0 && rightPower < 0 || leftPower < 0 && rightPower > 0) //Rotating
