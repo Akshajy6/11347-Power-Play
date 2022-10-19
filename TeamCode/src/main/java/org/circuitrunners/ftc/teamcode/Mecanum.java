@@ -20,12 +20,12 @@ public class Mecanum {
         fr.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.REVERSE);
         imu = imu1;
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         imu.initialize(parameters);
     }
 
     public boolean drive(double y, double x, double rx, boolean p, boolean c) {
-        double angle = -imu.getAngularOrientation().firstAngle + 90;
+        double angle = -imu.getAngularOrientation().firstAngle;
 
         //Recalibrate imu angle
         if (!p && c) {
@@ -38,15 +38,15 @@ public class Mecanum {
         double rotY = x * Math.sin(angle) + y * Math.cos(angle);
 
         double d = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        double flPwr = (rotY + rotX + rx) / d;
-        double frPwr = (rotY - rotX - rx) / d;
-        double blPwr = (rotY - rotX + rx) / d;
-        double brPwr = (rotY + rotX - rx) / d;
+        double flpwr = (rotY + rotX + rx) / d;
+        double blpwr = (rotY - rotX + rx) / d;
+        double frpwr = (rotY - rotX - rx) / d;
+        double brpwr = (rotY + rotX - rx) / d;
 
-        fl.setPower(flPwr);
-        fr.setPower(frPwr);
-        bl.setPower(blPwr);
-        br.setPower(brPwr);
+        fl.setPower(flpwr);
+        bl.setPower(blpwr);
+        fr.setPower(frpwr);
+        br.setPower(brpwr);
         return false; //Angle not recalibrated
     }
 

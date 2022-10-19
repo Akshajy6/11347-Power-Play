@@ -34,9 +34,9 @@ public class KiwiTeleOp extends LinearOpMode {
                 //launch
                 //set certain velocity to l (sleep for some amount of ms to run motor for that long)
                 //set feed servo to certain position
-                f.setPosition(f.getPosition()+0.5);
+                //f.setPosition(f.getPosition()+0.5);
                 l.setPower(0.5);
-                sleep(3000);
+                sleep(2000);
             }
         }
     }
