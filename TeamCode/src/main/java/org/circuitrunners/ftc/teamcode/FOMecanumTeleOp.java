@@ -12,6 +12,7 @@ public class FOMecanumTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
     FourBar fb;
+
     @Override
     public void runOpMode() throws InterruptedException {
         //Initializing hardware
@@ -22,13 +23,13 @@ public class FOMecanumTeleOp extends LinearOpMode {
         DcMotor fr = hardwareMap.dcMotor.get("fr");
         DcMotor bl = hardwareMap.dcMotor.get("bl");
         DcMotor br = hardwareMap.dcMotor.get("br");
-        DcMotor l = hardwareMap.dcMotor.get("l");
-        DcMotor r = hardwareMap.dcMotor.get("r");
+        //DcMotor l = hardwareMap.dcMotor.get("l");
+        //DcMotor r = hardwareMap.dcMotor.get("r");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-        fb = new FourBar(l, r);
+        //fb = new FourBar(l, r);
 
         int mode = 1;
 
@@ -37,14 +38,22 @@ public class FOMecanumTeleOp extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            try {p1.copy(c1); c1.copy(gamepad1);} catch (RobotCoreException e) {e.printStackTrace();}
+            try {
+                p1.copy(c1);
+                c1.copy(gamepad1);
+            } catch (RobotCoreException e) {
+                e.printStackTrace();
+            }
 
             //Mecanum drivetrain code
             if (drivetrain.drive(c1.left_stick_y, c1.left_stick_x * 1.1, -c1.right_stick_x, p1.left_bumper, c1.left_bumper)) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
+        }
+    }
+}
 
-            //TO BE REMOVED AFTER FINDING DR4B POSITIONS
+/*            //TO BE REMOVED AFTER FINDING DR4B POSITIONS
             l.setPower(-gamepad1.right_stick_y);
             r.setPower(gamepad1.right_stick_y);
             telemetry.addLine("Left Pos: " + l.getCurrentPosition());
@@ -85,4 +94,4 @@ public class FOMecanumTeleOp extends LinearOpMode {
         }
     }
 }
-
+*/
