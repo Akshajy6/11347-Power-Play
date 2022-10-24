@@ -25,11 +25,12 @@ public class FOMecanumTeleOp extends LinearOpMode {
         DcMotor br = hardwareMap.dcMotor.get("br");
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
+        DcMotor i = hardwareMap.dcMotor.get("i");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-        fb = new FourBar(l, r);
+//        fb = new FourBar(l, r);
 
         int mode = 1;
 
@@ -53,39 +54,38 @@ public class FOMecanumTeleOp extends LinearOpMode {
            //TO BE REMOVED AFTER FINDING DR4B POSITIONS
             l.setPower(-gamepad1.right_stick_y);
             r.setPower(gamepad1.right_stick_y);
-            telemetry.addLine("Left Pos: " + l.getCurrentPosition());
-            telemetry.addLine("Right Pos: " + r.getCurrentPosition());
-            telemetry.update();
+            i.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
 
-            //Mode selection
-            if (mode == 1 && !p1.right_bumper && c1.right_bumper) {
-                mode = 2; //Co-op manual
-                gamepad1.rumble(250);
-                sleep(250);
-                gamepad1.rumble(250);
-            }
-            else if (mode == 2 && !p1.right_bumper && c1.right_bumper) {
-                mode = 3; //Auto
-                gamepad1.rumble(250);
-                sleep(250);
-                gamepad1.rumble(250);
-                sleep(250);
-                gamepad1.rumble(250);
-            }
-            else if (mode == 3 && !p1.right_bumper && c1.right_bumper) {
-                mode = 1; //Solo manual
-                gamepad1.rumble(250);
-            }
 
-            //Run modes
-            if (mode == 1) { //Solo manual
-                double state = l.getCurrentPosition();
-                fb.runManual(state, gamepad1.right_stick_y);
-            }
-            else if (mode == 2) { //Co-op manual
-                double state = l.getCurrentPosition();
-                fb.runManual(state, gamepad2.right_stick_y);
-            }
+//            //Mode selection
+//            if (mode == 1 && !p1.right_bumper && c1.right_bumper) {
+//                mode = 2; //Co-op manual
+//                gamepad1.rumble(250);
+//                sleep(250);
+//                gamepad1.rumble(250);
+//            }
+//            else if (mode == 2 && !p1.right_bumper && c1.right_bumper) {
+//                mode = 3; //Auto
+//                gamepad1.rumble(250);
+//                sleep(250);
+//                gamepad1.rumble(250);
+//                sleep(250);
+//                gamepad1.rumble(250);
+//            }
+//            else if (mode == 3 && !p1.right_bumper && c1.right_bumper) {
+//                mode = 1; //Solo manual
+//                gamepad1.rumble(250);
+//            }
+//
+//            //Run modes
+//            if (mode == 1) { //Solo manual
+//                double state = l.getCurrentPosition();
+//                fb.runManual(state, gamepad1.right_stick_y);
+//            }
+//            else if (mode == 2) { //Co-op manual
+//                double state = l.getCurrentPosition();
+//                fb.runManual(state, gamepad2.right_stick_y);
+//            }
 //            else if (mode == 3) { //Auto TODO
 //
 //            }

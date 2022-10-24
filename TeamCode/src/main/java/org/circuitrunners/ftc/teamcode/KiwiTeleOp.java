@@ -21,22 +21,18 @@ public class KiwiTeleOp extends LinearOpMode {
         Servo f = hardwareMap.servo.get("f");
 
         drivebase = new KiwiDrive(left, right, slide);
-        //KiwiLauncher = new KiwiLauncher(launcher);
         waitForStart();
 
         while (opModeIsActive())
         {
-            drivebase.drive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+//            drivebase.drive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            drivebase.drive(gamepad1.left_stick_y, gamepad1.right_stick_y, (gamepad1.left_stick_x + gamepad1.right_stick_x) / 2 );
 
             try {p.copy(c); c.copy(gamepad1);} catch (RobotCoreException e) {e.printStackTrace();}
 
-            if (!p.a && c.a) {
-                //launch
-                //set certain velocity to l (sleep for some amount of ms to run motor for that long)
-                //set feed servo to certain position
-                //f.setPosition(f.getPosition()+0.5);
-                l.setPower(0.5);
-                sleep(2000);
+            l.setPower((gamepad1.right_trigger - gamepad1.left_trigger) / 2);
+            if (!p.x && c.x) {
+                f.setPosition(f.getPosition() + 0.1);
             }
         }
     }
