@@ -1,4 +1,4 @@
-package org.circuitrunners.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.mecanum;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp
-public class FOMecanumTeleOp extends LinearOpMode {
+public class MecanumTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
     FourBar fb;
@@ -17,7 +17,9 @@ public class FOMecanumTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         //Initializing hardware
         Gamepad p1 = new Gamepad();
+        Gamepad p2 = new Gamepad();
         Gamepad c1 = new Gamepad();
+        Gamepad c2 = new Gamepad();
 
         DcMotor fl = hardwareMap.dcMotor.get("fl");
         DcMotor fr = hardwareMap.dcMotor.get("fr");
@@ -38,10 +40,15 @@ public class FOMecanumTeleOp extends LinearOpMode {
 
         if (isStopRequested()) return;
 
+        boolean upPressed = false;
+        boolean downPressed = false;
+
         while (opModeIsActive()) {
             try {
                 p1.copy(c1);
+                p2.copy(c2);
                 c1.copy(gamepad1);
+                c2.copy(gamepad2);
             } catch (RobotCoreException e) {
                 e.printStackTrace();
             }
@@ -51,10 +58,25 @@ public class FOMecanumTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated
             }
 
-           //TO BE REMOVED AFTER FINDING DR4B POSITIONS
-            l.setPower(-gamepad1.right_stick_y);
-            r.setPower(gamepad1.right_stick_y);
-            i.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
+            if (!p2.y && c2.y) {
+                upPressed = !upPressed;
+            }
+
+            if (upPressed && !downPressed) {
+                l.setPower(-0.6);
+                r.setPower(0.6);
+            }
+
+            if (!p2.a && c2.a) {
+                downPressed = !downPressed;
+            }
+
+            if (downPressed && !upPressed) {
+                l.setPower(0.1); //Tune as needed to counteract gravity
+                r.setPower(-0.1);
+            }
+
+            i.setPower(c2.left_trigger - c2.right_trigger);//right for intake, left for outtake
 
 
 //            //Mode selection

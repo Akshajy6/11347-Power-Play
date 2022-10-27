@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package org.openftc.apriltag;
+package org.firstinspires.ftc.teamcode.auto.apriltag;
 
 public class AprilTagPose
 {
