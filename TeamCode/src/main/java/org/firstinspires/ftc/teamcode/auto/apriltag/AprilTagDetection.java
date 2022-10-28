@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package org.circuitrunners.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.auto.apriltag;
 
 import org.opencv.core.Point;
 
@@ -30,5 +30,5 @@ public class AprilTagDetection
     public float decisionMargin;
     public Point center;
     public Point[] corners;
-    public org.openftc.apriltag.AprilTagPose pose;
+    public AprilTagPose pose;
 }

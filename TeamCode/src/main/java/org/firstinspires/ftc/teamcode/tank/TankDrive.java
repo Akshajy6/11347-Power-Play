@@ -1,4 +1,4 @@
-package org.circuitrunners.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.tank;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -21,7 +21,6 @@ public class TankDrive {
 
         leftPower *= MAX_POWER;
         rightPower *= MAX_POWER;
-
 
         for(int i = 0; i < motors.length; i++) {
             motors[i].setPower((i % 2 == 0) ? leftPower : rightPower);

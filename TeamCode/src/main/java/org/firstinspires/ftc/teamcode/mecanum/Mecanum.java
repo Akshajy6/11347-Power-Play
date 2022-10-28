@@ -1,4 +1,4 @@
-package org.circuitrunners.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.mecanum;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -43,11 +43,14 @@ public class Mecanum {
         double frpwr = (rotY - rotX - rx) / d;
         double brpwr = (rotY + rotX - rx) / d;
 
-        fl.setPower(flpwr);
-        bl.setPower(blpwr);
-        fr.setPower(frpwr);
-        br.setPower(brpwr);
+        fl.setPower(curve(flpwr));
+        bl.setPower(curve(blpwr));
+        fr.setPower(curve(frpwr));
+        br.setPower(curve(brpwr));
         return false; //Angle not recalibrated
     }
 
+    private double curve(double pwr) {
+        return (0.5 * Math.pow(pwr, 3)) + (0.5 * pwr);
+    }
 }

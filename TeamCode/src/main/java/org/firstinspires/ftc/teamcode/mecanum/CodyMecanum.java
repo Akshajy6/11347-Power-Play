@@ -1,6 +1,5 @@
-package org.circuitrunners.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.mecanum;
 
-import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_WITHOUT_ENCODER;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
 

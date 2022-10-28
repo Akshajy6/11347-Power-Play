@@ -19,8 +19,7 @@
  * SOFTWARE.
  */
 
-package org.circuitrunners.ftc.teamcode;
-import static com.sun.tools.doclint.Entity.or;
+package org.firstinspires.ftc.teamcode.auto.apriltag;
 
 import org.opencv.core.Mat;
 

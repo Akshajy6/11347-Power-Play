@@ -19,10 +19,9 @@
  * SOFTWARE.
  */
 
-package org.circuitrunners.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.auto.apriltag;
 
 import org.opencv.core.Point;
-import org.openftc.apriltag.AprilTagPose;
 
 import java.util.ArrayList;
 
