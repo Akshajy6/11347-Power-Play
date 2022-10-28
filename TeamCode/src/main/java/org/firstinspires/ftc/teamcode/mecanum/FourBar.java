@@ -4,63 +4,32 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class FourBar {
-    private DcMotor l; private DcMotor r; private DcMotor i;
-//    final private double UP = ; //100% extension
-//    final private double HIGH = ; //high pole
-//    final private double MED = ; //medium pole
-//    final private double LOW = ; //low pole
-//    final private double GROUND = ; //ground junction
-//    final private double CONE = ; //cone height (for intaking)
-//    final private double DOWN = ; //0% extension
-//    private double target = DOWN;
+    final private DcMotor l;
+    final private DcMotor r;
+    final private DcMotor i;
 
-    public FourBar(DcMotor lm, DcMotor rm) {
+    public FourBar(DcMotor lm, DcMotor rm, DcMotor im) {
         l = lm;
         r = rm;
-
+        i = im;
         l.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        l.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        r.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void runManual(double state, double input) { //For manual solo or co-op
-//        PID controller = new PID(0.05, 0, 0); //TO BE TUNED
-//        double factor = 2; //Change to control dr4b speed
-//        target += input * factor;
-//        double pwr = controller.update(state, target);
-//
-//        l.setPower(-pwr);
-//        r.setPower(pwr);
+    public void runManual(double fbp, double rp) {
+        l.setPower(-fbp);
+        r.setPower(fbp);
+        i.setPower(rp);
     }
 
-    public void runAuto() {
-        //TODO
-    }
-}
+    public void runPID(double kp, double ki, double kd, double lefttarget, double righttarget) {
+        PID pid = new PID(kp, ki, kd);
+        double commandleft = pid.update(l.getCurrentPosition(), lefttarget);
+        double commandright = pid.update(r.getCurrentPosition(), righttarget);
 
-class PID { //PID feedback-loop controllers
-    double Kp; double Ki; double Kd;
-    double integral;
-    double lastError;
-    ElapsedTime timer = new ElapsedTime();
-
-
-    public PID(double Kp, double Ki, double Kd) {}
-    public double update(double state, double target) {
-        // calculating error
-        double error = target - state;
-
-        // rate of change of the error
-        double derivative = (error - lastError) / timer.seconds();
-
-        // sum of all error over time
-        integral = integral + (error * timer.seconds());
-
-        // PID equation
-        double output = (Kp * error) + (Ki * integral) + (Kd * derivative);
-
-        // updating lastError and resetting timer
-        lastError = error;
-        timer.reset();
-        return output;
+        l.setPower(-commandleft);
+        r.setPower(commandright);
     }
 }

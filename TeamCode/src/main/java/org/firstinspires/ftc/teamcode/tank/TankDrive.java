@@ -22,7 +22,6 @@ public class TankDrive {
         leftPower *= MAX_POWER;
         rightPower *= MAX_POWER;
 
-
         for(int i = 0; i < motors.length; i++) {
             motors[i].setPower((i % 2 == 0) ? leftPower : rightPower);
         }

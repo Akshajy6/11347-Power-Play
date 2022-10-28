@@ -13,6 +13,20 @@ public class MecanumTeleOp extends LinearOpMode {
     Mecanum drivetrain;
     FourBar fb;
 
+    //Four bar positions
+//    final double LEFTHIGH = ; //high pole left motor
+//    final double RIGHTHIGH = ; //high pole right motor
+//    final double LEFTMID = ; //medium pole left motor
+//    final double RIGHTMID = ; //medium pole right motor
+//    final double LEFTLOW = ; //low pole left motor
+//    final double RIGHTLOW = ; //low pole right motor
+//    final double LEFTGROUND = ; //ground pole left motor
+//    final double RIGHTGROUND = ; //ground pole right motor
+//    final double LEFTCONE = ; //cone height left motor
+//    final double RIGHTCONE = ; //cone height right motor
+
+
+
     @Override
     public void runOpMode() throws InterruptedException {
         //Initializing hardware
@@ -32,9 +46,7 @@ public class MecanumTeleOp extends LinearOpMode {
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-//        fb = new FourBar(l, r);
-
-        int mode = 1;
+        fb = new FourBar(l, r, i);
 
         waitForStart();
 
@@ -42,6 +54,7 @@ public class MecanumTeleOp extends LinearOpMode {
 
         boolean upPressed = false;
         boolean downPressed = false;
+        boolean manual = true;
 
         while (opModeIsActive()) {
             try {
@@ -58,60 +71,59 @@ public class MecanumTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated
             }
 
-            if (!p2.y && c2.y) {
-                upPressed = !upPressed;
-            }
-
-            if (upPressed && !downPressed) {
-                l.setPower(-0.6);
-                r.setPower(0.6);
-            }
-
-            if (!p2.a && c2.a) {
-                downPressed = !downPressed;
-            }
-
-            if (downPressed && !upPressed) {
-                l.setPower(0.1); //Tune as needed to counteract gravity
-                r.setPower(-0.1);
-            }
-
-            i.setPower(c2.left_trigger - c2.right_trigger);//right for intake, left for outtake
-
-
-//            //Mode selection
-//            if (mode == 1 && !p1.right_bumper && c1.right_bumper) {
-//                mode = 2; //Co-op manual
-//                gamepad1.rumble(250);
-//                sleep(250);
-//                gamepad1.rumble(250);
-//            }
-//            else if (mode == 2 && !p1.right_bumper && c1.right_bumper) {
-//                mode = 3; //Auto
-//                gamepad1.rumble(250);
-//                sleep(250);
-//                gamepad1.rumble(250);
-//                sleep(250);
-//                gamepad1.rumble(250);
-//            }
-//            else if (mode == 3 && !p1.right_bumper && c1.right_bumper) {
-//                mode = 1; //Solo manual
-//                gamepad1.rumble(250);
+//            if (!p2.y && c2.y) {
+//                upPressed = !upPressed;
 //            }
 //
-//            //Run modes
-//            if (mode == 1) { //Solo manual
-//                double state = l.getCurrentPosition();
-//                fb.runManual(state, gamepad1.right_stick_y);
+//            if (upPressed && !downPressed) {
+//                l.setPower(-0.6);
+//                r.setPower(0.6);
 //            }
-//            else if (mode == 2) { //Co-op manual
-//                double state = l.getCurrentPosition();
-//                fb.runManual(state, gamepad2.right_stick_y);
-//            }
-//            else if (mode == 3) { //Auto TODO
 //
+//            if (!p2.a && c2.a) {
+//                downPressed = !downPressed;
 //            }
+//
+//            if (downPressed && !upPressed) {
+//                l.setPower(0.1); //Tune as needed to counteract gravity
+//                r.setPower(-0.1);
+//            }
+
+            //Mode selection
+            if (!p2.left_bumper && c2.left_bumper) {
+                manual = !manual;
+                if (manual) {
+                    gamepad2.rumble(250);
+                } else {
+                    gamepad2.rumble(250);
+                    sleep(500);
+                    gamepad2.rumble(250);
+                }
+            }
+
+
+            if (manual) {
+                //Manual mode
+                fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+            } else { //IF THIS DOESNT WORK USE CONTROL VARIABLES FOR EACH PID MODE (condition || mode engaged)
+                //PID mode
+                if (!p2.right_bumper && c2.right_bumper) { //Intake height
+//                    fb.runPID(10, 0, 0, LEFTCONE, RIGHTCONE); //TUNE AS NEEDED
+                } else if (!p2.dpad_up && c2.dpad_up) { //High pole
+//                    fb.runPID(10, 0, 0, LEFTHIGH, RIGHTHIGH); //TUNE AS NEEDED
+                } else if (!p2.dpad_right && c2.dpad_right) { //Medium pole
+//                    fb.runPID(10, 0, 0, LEFTMID, RIGHTMID); //TUNE AS NEEDED
+                } else if (!p2.dpad_left && c2.dpad_left) { //Low pole
+//                    fb.runPID(10, 0, 0, LEFTLOW, RIGHTLOW); //TUNE AS NEEDED
+                } else if (!p2.dpad_down && c2.dpad_down) { //Ground junction
+//                    fb.runPID(10, 0, 0, LEFTGROUND, RIGHTGROUND); //TUNE AS NEEDED
+                } else {
+                    fb.runManual(0, 0);
+                }
+            }
         }
     }
 }
+
+
 
