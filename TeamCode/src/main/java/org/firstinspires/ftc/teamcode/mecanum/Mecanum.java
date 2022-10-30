@@ -47,7 +47,7 @@ public class Mecanum {
         bl.setPower(curve(blpwr));
         fr.setPower(curve(frpwr));
         br.setPower(curve(brpwr));
-        return false; //Angle not recalibrated
+        return false;
     }
 
     private double curve(double pwr) {

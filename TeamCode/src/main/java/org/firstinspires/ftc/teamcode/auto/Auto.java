@@ -184,39 +184,56 @@ public class Auto extends LinearOpMode
         {
             int id = tagOfInterest.id;
             double p = 0.5;
+
+            //Cone scoring auto code
+
             if (id == 0) {
                 //Auto left
+                //Go left
                 fl.setPower(p);
                 fr.setPower(p);
                 bl.setPower(p);
                 br.setPower(p);
                 sleep(900);
 
+                //Go forward to parking space
                 fl.setPower(p);
                 fr.setPower(-p);
                 bl.setPower(-p);
                 br.setPower(p);
-                sleep(1500);
+                sleep(1600);
             } else if (id == 1) {
                 //Auto mid
+                //Go forward to parking space
                 fl.setPower(p);
                 fr.setPower(-p);
                 bl.setPower(-p);
                 br.setPower(p);
-                sleep(1500);
+                sleep(1600);
             } else {
                 //Auto right
+                //Go right
                 fl.setPower(-p);
                 fr.setPower(-p);
                 bl.setPower(-p);
                 br.setPower(-p);
                 sleep(900);
 
+                //Go forward to parking space
                 fl.setPower(p);
                 fr.setPower(-p);
                 bl.setPower(-p);
                 br.setPower(p);
-                sleep(1500);
+                sleep(1600);
+            }
+
+            //Turn to straighten orientation for TeleOp
+            if (id != 1) {
+                fl.setPower(p);
+                fr.setPower(-p);
+                bl.setPower(p);
+                br.setPower(-p);
+                sleep(728);
             }
         }
 
@@ -230,8 +247,5 @@ public class Auto extends LinearOpMode
         telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
         telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
         telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
-        telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
-        telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
-        telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
     }
 }

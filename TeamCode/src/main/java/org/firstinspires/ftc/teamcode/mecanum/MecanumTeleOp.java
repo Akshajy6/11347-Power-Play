@@ -22,11 +22,8 @@ public class MecanumTeleOp extends LinearOpMode {
 //    final double RIGHTLOW = ; //low pole right motor
 //    final double LEFTGROUND = ; //ground pole left motor
 //    final double RIGHTGROUND = ; //ground pole right motor
-//    final double LEFTCONE = ; //cone height left motor
-//    final double RIGHTCONE = ; //cone height right motor
-
-
-
+//    final double LEFTCONE = ; //ground pole left motor
+//    final double RIGHTCONE = ; //ground pole right motor
     @Override
     public void runOpMode() throws InterruptedException {
         //Initializing hardware
@@ -52,8 +49,6 @@ public class MecanumTeleOp extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        boolean upPressed = false;
-        boolean downPressed = false;
         boolean manual = true;
 
         while (opModeIsActive()) {
@@ -71,24 +66,6 @@ public class MecanumTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated
             }
 
-//            if (!p2.y && c2.y) {
-//                upPressed = !upPressed;
-//            }
-//
-//            if (upPressed && !downPressed) {
-//                l.setPower(-0.6);
-//                r.setPower(0.6);
-//            }
-//
-//            if (!p2.a && c2.a) {
-//                downPressed = !downPressed;
-//            }
-//
-//            if (downPressed && !upPressed) {
-//                l.setPower(0.1); //Tune as needed to counteract gravity
-//                r.setPower(-0.1);
-//            }
-
             //Mode selection
             if (!p2.left_bumper && c2.left_bumper) {
                 manual = !manual;
@@ -105,21 +82,21 @@ public class MecanumTeleOp extends LinearOpMode {
             if (manual) {
                 //Manual mode
                 fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
-            } else { //IF THIS DOESNT WORK USE CONTROL VARIABLES FOR EACH PID MODE (condition || mode engaged)
-                //PID mode
-                if (!p2.right_bumper && c2.right_bumper) { //Intake height
+//            } else { //IF THIS DOESNT WORK USE CONTROL VARIABLES FOR EACH PID MODE (condition || mode engaged)
+//                //PID mode
+//                if (!p2.right_bumper && c2.right_bumper) { //Intake height
 //                    fb.runPID(10, 0, 0, LEFTCONE, RIGHTCONE); //TUNE AS NEEDED
-                } else if (!p2.dpad_up && c2.dpad_up) { //High pole
+//                } else if (!p2.dpad_up && c2.dpad_up) { //High pole
 //                    fb.runPID(10, 0, 0, LEFTHIGH, RIGHTHIGH); //TUNE AS NEEDED
-                } else if (!p2.dpad_right && c2.dpad_right) { //Medium pole
+//                } else if (!p2.dpad_right && c2.dpad_right) { //Medium pole
 //                    fb.runPID(10, 0, 0, LEFTMID, RIGHTMID); //TUNE AS NEEDED
-                } else if (!p2.dpad_left && c2.dpad_left) { //Low pole
+//                } else if (!p2.dpad_left && c2.dpad_left) { //Low pole
 //                    fb.runPID(10, 0, 0, LEFTLOW, RIGHTLOW); //TUNE AS NEEDED
-                } else if (!p2.dpad_down && c2.dpad_down) { //Ground junction
+//                } else if (!p2.dpad_down && c2.dpad_down) { //Ground junction
 //                    fb.runPID(10, 0, 0, LEFTGROUND, RIGHTGROUND); //TUNE AS NEEDED
-                } else {
-                    fb.runManual(0, 0);
-                }
+//                } else {
+//                    fb.runManual(0, 0);
+//                }
             }
         }
     }

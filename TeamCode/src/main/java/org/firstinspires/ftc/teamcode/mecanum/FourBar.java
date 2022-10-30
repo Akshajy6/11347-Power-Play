@@ -24,10 +24,10 @@ public class FourBar {
         i.setPower(rp);
     }
 
-    public void runPID(double kp, double ki, double kd, double lefttarget, double righttarget) {
+    public void runPID(double kp, double ki, double kd, double targetleft, double targetright) {
         PID pid = new PID(kp, ki, kd);
-        double commandleft = pid.update(l.getCurrentPosition(), lefttarget);
-        double commandright = pid.update(r.getCurrentPosition(), righttarget);
+        double commandleft = pid.update(l.getCurrentPosition(), targetleft);
+        double commandright = pid.update(r.getCurrentPosition(), targetright);
 
         l.setPower(-commandleft);
         r.setPower(commandright);
