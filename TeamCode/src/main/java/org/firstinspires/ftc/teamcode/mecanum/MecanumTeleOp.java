@@ -62,7 +62,7 @@ public class MecanumTeleOp extends LinearOpMode {
             }
 
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.left_bumper, c1.left_bumper)) {
+            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.left_bumper, c1.left_bumper) == 0) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
 

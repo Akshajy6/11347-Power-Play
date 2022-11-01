@@ -24,13 +24,13 @@ public class Mecanum {
         imu.initialize(parameters);
     }
 
-    public boolean drive(double y, double x, double rx, boolean p, boolean c) {
+    public double drive(double y, double x, double rx, boolean p, boolean c) {
         double angle = -imu.getAngularOrientation().firstAngle;
 
         //Recalibrate imu angle
         if (!p && c) {
             angle = 0;
-            return true;
+            return angle;
         }
 
         //Mecanum math
@@ -47,7 +47,7 @@ public class Mecanum {
         bl.setPower(curve(blpwr));
         fr.setPower(curve(frpwr));
         br.setPower(curve(brpwr));
-        return false;
+        return 10000;
     }
 
     private double curve(double pwr) {
