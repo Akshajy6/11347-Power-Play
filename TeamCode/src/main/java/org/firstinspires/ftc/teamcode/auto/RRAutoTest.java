@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous
 public class RRAutoTest extends LinearOpMode {
@@ -15,10 +15,18 @@ public class RRAutoTest extends LinearOpMode {
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+        Pose2d startpose = new Pose2d(60, 36);
+
+        drive.setPoseEstimate(startpose);
+
+        TrajectorySequence ts = drive.trajectorySequenceBuilder(startpose)
+                .lineTo(new Vector2d(12, 36))
+                .build();
+
         waitForStart();
 
-        if(isStopRequested()) return;
-
-
+        if(!isStopRequested()) {
+            drive.followTrajectorySequence(ts);
+        }
     }
 }
