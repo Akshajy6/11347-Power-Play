@@ -228,13 +228,11 @@ public class Auto extends LinearOpMode
             }
 
             //Turn to straighten orientation for TeleOp
-            if (id != 1) {
-                fl.setPower(p);
-                fr.setPower(-p);
-                bl.setPower(p);
-                br.setPower(-p);
-                sleep(728);
-            }
+            fl.setPower(p);
+            fr.setPower(-p);
+            bl.setPower(p);
+            br.setPower(-p);
+            sleep(728);
         }
 
 
