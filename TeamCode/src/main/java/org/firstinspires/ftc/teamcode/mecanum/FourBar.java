@@ -19,7 +19,7 @@ public class FourBar {
     }
 
     public void runManual(double fbp, double rp) {
-        l.setPower(-fbp);
+        l.setPower(fbp);
         r.setPower(fbp);
         i.setPower(rp);
     }

@@ -186,7 +186,6 @@ public class Auto extends LinearOpMode
             double p = 0.5;
 
             //Cone scoring auto code
-
             if (id == 0) {
                 //Auto left
                 //Go left
@@ -209,7 +208,13 @@ public class Auto extends LinearOpMode
                 fr.setPower(-p);
                 bl.setPower(-p);
                 br.setPower(p);
-                sleep(1600);
+                sleep(1800);
+
+                fl.setPower(-p);
+                fr.setPower(p);
+                bl.setPower(p);
+                br.setPower(-p);
+                sleep(200);
             } else {
                 //Auto right
                 //Go right
