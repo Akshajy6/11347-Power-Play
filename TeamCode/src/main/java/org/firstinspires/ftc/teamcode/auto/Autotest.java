@@ -44,16 +44,16 @@ public class Autotest extends LinearOpMode {
         fr.setPower(-p);
         bl.setPower(-p);
         br.setPower(p);
-        sleep(2700);
+        sleep(2740);
 
         //Turn right slightly to orient intake with pole
         fl.setPower(p);
         fr.setPower(-p);
         bl.setPower(p);
         br.setPower(-p);
-        sleep(300);
+        sleep(400);
 
-        //Stop moving wheels
+       //Stop moving wheels
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
@@ -62,14 +62,14 @@ public class Autotest extends LinearOpMode {
         //Raise fourbar (might have to change power on this one as well as time for it to actually go up and counteract gravity) (try time first)
         l.setPower(0.8);
         r.setPower(0.8);
-        sleep(4000);
+        sleep(2000);
 
         //Go forwards a little to position intake/outtake over pole
         fl.setPower(-p);
         fr.setPower(-p);
         bl.setPower(-p);
         br.setPower(-p);
-        sleep(300);
+        sleep(350);
 
         //Stop moving wheels
         fl.setPower(0);
@@ -79,7 +79,7 @@ public class Autotest extends LinearOpMode {
 
         //Run outtake to score cone
         i.setPower(p);
-        sleep(200);
+        sleep(500);
 
         //Move backwards so outtake is not over pole
         fl.setPower(p);
@@ -97,8 +97,9 @@ public class Autotest extends LinearOpMode {
         fr.setPower(-p);
         bl.setPower(p);
         br.setPower(-p);
-        sleep(300);
+        sleep(270);
 
         //Once you get everything before this tuned and working feel free to work on bringing robot back to original starting place
     }
 }
+
