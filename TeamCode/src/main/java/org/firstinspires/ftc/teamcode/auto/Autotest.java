@@ -51,7 +51,7 @@ public class Autotest extends LinearOpMode {
         fr.setPower(-p);
         bl.setPower(p);
         br.setPower(-p);
-        sleep(400);
+        sleep(415);
 
        //Stop moving wheels
         fl.setPower(0);
@@ -97,7 +97,7 @@ public class Autotest extends LinearOpMode {
         fr.setPower(-p);
         bl.setPower(p);
         br.setPower(-p);
-        sleep(270);
+        sleep(255);
 
         //Once you get everything before this tuned and working feel free to work on bringing robot back to original starting place
     }
