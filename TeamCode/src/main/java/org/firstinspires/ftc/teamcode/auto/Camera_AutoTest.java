@@ -1,24 +1,3 @@
-/*
- * Copyright (c) 2021 OpenFTC Team
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
-*/
-
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -37,7 +16,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import java.util.ArrayList;
 
 @Autonomous
-public class Auto extends LinearOpMode
+public class Camera_AutoTest extends LinearOpMode
 {
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -91,12 +70,19 @@ public class Auto extends LinearOpMode
         fr.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        DcMotor l = hardwareMap.dcMotor.get("l");
+        DcMotor r = hardwareMap.dcMotor.get("r");
+        DcMotor i = hardwareMap.dcMotor.get("i");
+
         telemetry.setMsTransmissionInterval(50);
+        double p = 0.5;
+
+
 
         //
-         // The INIT-loop:
-         // This REPLACES waitForStart!
-         //
+        // The INIT-loop:
+        // This REPLACES waitForStart!
+        //
         while (!isStarted() && !isStopRequested())
         {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
@@ -157,9 +143,55 @@ public class Auto extends LinearOpMode
         }
 
         //
-         // The START command just came in: now work off the latest snapshot acquired
-         // during the init loop.
+        // The START command just came in: now work off the latest snapshot acquired
+        // during the init loop.
+        //Left to high pole
+        fl.setPower(p);
+        fr.setPower(-p);
+        bl.setPower(-p);
+        br.setPower(p);
+        sleep(3750);
 
+        //Stop moving wheels
+        fl.setPower(0);
+        fr.setPower(0);
+        bl.setPower(0);
+        br.setPower(0);
+
+        //Raise fourbar (might have to change power on this one as well as time for it to actually go up and counteract gravity) (try time first)
+        l.setPower(0.8);
+        r.setPower(0.8);
+        sleep(2000);
+
+        //Go forwards a little to position intake/outtake over pole
+        fl.setPower(-p);
+        fr.setPower(-p);
+        bl.setPower(-p);
+        br.setPower(-p);
+        sleep(350);
+
+        //Stop moving wheels
+        fl.setPower(0);
+        fr.setPower(0);
+        bl.setPower(0);
+        br.setPower(0);
+
+        //Run outtake to score cone
+        i.setPower(p);
+        sleep(500);
+
+        //Move backwards so outtake is not over pole
+        fl.setPower(p);
+        fr.setPower(p);
+        bl.setPower(p);
+        br.setPower(p);
+        sleep(300);
+
+        //Stop extending fourbar (might have to be negative, idk try 0 first Fourbar needs lots of trial and error)
+        l.setPower(0);
+        r.setPower(0);
+
+        //Don't change unless auto cannot be completed in time
 
         // Update the telemetry
         if(tagOfInterest != null)
@@ -178,24 +210,24 @@ public class Auto extends LinearOpMode
         if(tagOfInterest == null)
         {
             //
-             //Insert your autonomous code here, presumably running some default configuration
-             //since the tag was never sighted during INIT
-             //
+            //Insert your autonomous code here, presumably running some default configuration
+            //since the tag was never sighted during INIT
+            //
         }
         else
         {
             int id = tagOfInterest.id;
-            double p = 0.5;
 
             //Cone scoring auto code
             if (id == 0) {
                 //Auto left
                 //Go left
-                fl.setPower(p);
+                /*fl.setPower(p);
                 fr.setPower(p);
                 bl.setPower(p);
                 br.setPower(p);
                 sleep(900);
+
 
                 //Go forward to parking space
                 fl.setPower(p);
@@ -203,6 +235,8 @@ public class Auto extends LinearOpMode
                 bl.setPower(-p);
                 br.setPower(p);
                 sleep(1600);
+
+                 */
             } else if (id == 1) {
                 //Auto mid
                 //Go forward to parking space
