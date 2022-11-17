@@ -150,13 +150,14 @@ public class Camera_AutoTest extends LinearOpMode
         fr.setPower(-p);
         bl.setPower(-p);
         br.setPower(p);
-        sleep(3750);
+        sleep(3550);
 
         //Stop moving wheels
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
         br.setPower(0);
+        sleep(200);
 
         //Raise fourbar (might have to change power on this one as well as time for it to actually go up and counteract gravity) (try time first)
         l.setPower(0.8);
@@ -185,7 +186,7 @@ public class Camera_AutoTest extends LinearOpMode
         fr.setPower(p);
         bl.setPower(p);
         br.setPower(p);
-        sleep(300);
+        sleep(400);
 
         //Stop extending fourbar (might have to be negative, idk try 0 first Fourbar needs lots of trial and error)
         l.setPower(0);
@@ -206,66 +207,168 @@ public class Camera_AutoTest extends LinearOpMode
             telemetry.update();
         }
 
+
+//**IMPORTANT** The sleep values are assuming each square is 600ms long
         // Actually do something useful
         if(tagOfInterest == null)
         {
-            //
-            //Insert your autonomous code here, presumably running some default configuration
-            //since the tag was never sighted during INIT
-            //
+            //Trying to make useful lol, gonna try and put a tele op here that will go and place cones
+            //If it can't park might as well have a semi useful program to go get cones and score some
+            //Who knows might actually be able to be implemented directly into main teleOp and not used as a backup
+            //Turn to straighten orientation for TeleOp
+            fl.setPower(p);
+            fr.setPower(-p);
+            bl.setPower(p);
+            br.setPower(-p);
+            sleep(728);
+
+            fr.setPower(-p);
+            fl.setPower(p);
+            br.setPower(p);
+            bl.setPower(-p);
+            sleep(300);
+
+            fr.setPower(p);
+            fl.setPower(-p);
+            br.setPower(p);
+            bl.setPower(-p);
+            sleep(1456);
+
+            l.setPower(0.6);
+            r.setPower(0.6);
+            sleep(550);
+
+            //Go forwards a little to position intake/outtake over pole
+            fl.setPower(-p);
+            fr.setPower(-p);
+            bl.setPower(-p);
+            br.setPower(-p);
+            sleep(350);
+
+            //Stop moving wheels
+            fl.setPower(0);
+            fr.setPower(0);
+            bl.setPower(0);
+            br.setPower(0);
+
+            l.setPower(0);
+            r.setPower(0);
+
+            //Fourbar should have dropped at this point so:
+            i.setPower(p);
+            sleep(300);
+
+            //Fourbar should now have cone
+            l.setPower(0.7);
+            r.setPower(0.7);
+            sleep(400);
+
+            fl.setPower(p);
+            fr.setPower(p);
+            bl.setPower(p);
+            br.setPower(p);
+            sleep(350);
+
+            l.setPower(0);
+            r.setPower(0);
+
+            //Fourbar should now be off stack and moved back to original position
+            fr.setPower(p);
+            fl.setPower(-p);
+            br.setPower(p);
+            bl.setPower(-p);
+            sleep(1456);
+
+            fr.setPower(p);
+            fl.setPower(p);
+            br.setPower(p);
+            bl.setPower(p);
+            sleep(300);
+
+            //Raise fourbar (might have to change power on this one as well as time for it to actually go up and counteract gravity) (try time first)
+            l.setPower(0.8);
+            r.setPower(0.8);
+            sleep(2000);
+
+            //Go forwards a little to position intake/outtake over pole
+            fl.setPower(-p);
+            fr.setPower(-p);
+            bl.setPower(-p);
+            br.setPower(-p);
+            sleep(350);
+
+            //Stop moving wheels
+            fl.setPower(0);
+            fr.setPower(0);
+            bl.setPower(0);
+            br.setPower(0);
+            sleep(200);
+
+            //Run outtake to score cone
+            i.setPower(p);
+            sleep(500);
+
+            //Move backwards so outtake is not over pole
+            fl.setPower(p);
+            fr.setPower(p);
+            bl.setPower(p);
+            br.setPower(p);
+            sleep(300);
+
+            //Stop extending fourbar (might have to be negative, idk try 0 first Fourbar needs lots of trial and error)
+            l.setPower(0);
+            r.setPower(0);
+
         }
         else
         {
             int id = tagOfInterest.id;
 
-            //Cone scoring auto code
+            //Parking scoring auto code
             if (id == 0) {
-                //Auto left
-                //Go left
-                /*fl.setPower(p);
+                //Go right to where april tag cone started
+                fl.setPower(-p);
+                fr.setPower(p);
+                bl.setPower(p);
+                br.setPower(-p);
+                sleep(2500);
+
+                //Go backwards to parking spot
+                fl.setPower(p);
                 fr.setPower(p);
                 bl.setPower(p);
                 br.setPower(p);
-                sleep(900);
+                sleep(1000);
 
-
-                //Go forward to parking space
-                fl.setPower(p);
-                fr.setPower(-p);
-                bl.setPower(-p);
-                br.setPower(p);
-                sleep(1600);
-
-                 */
             } else if (id == 1) {
-                //Auto mid
-                //Go forward to parking space
-                fl.setPower(p);
-                fr.setPower(-p);
-                bl.setPower(-p);
-                br.setPower(p);
-                sleep(1800);
+                //Go right to where april tag cone started
+                fl.setPower(-p);
+                fr.setPower(p);
+                bl.setPower(p);
+                br.setPower(-p);
+                sleep(3600);
 
+                //I have no idea what this section is for tbh
                 fl.setPower(-p);
                 fr.setPower(p);
                 bl.setPower(p);
                 br.setPower(-p);
                 sleep(200);
+
             } else {
-                //Auto right
-                //Go right
+                //Go right to where april tag cone started
+                fl.setPower(-p);
+                fr.setPower(p);
+                bl.setPower(p);
+                br.setPower(-p);
+                sleep(3600);
+
+                //Go forward to parking space
                 fl.setPower(-p);
                 fr.setPower(-p);
                 bl.setPower(-p);
                 br.setPower(-p);
-                sleep(900);
-
-                //Go forward to parking space
-                fl.setPower(p);
-                fr.setPower(-p);
-                bl.setPower(-p);
-                br.setPower(p);
-                sleep(1600);
+                sleep(600);
             }
 
             //Turn to straighten orientation for TeleOp
@@ -273,7 +376,7 @@ public class Camera_AutoTest extends LinearOpMode
             fr.setPower(-p);
             bl.setPower(p);
             br.setPower(-p);
-            sleep(728);
+            sleep(715);
         }
 
 
