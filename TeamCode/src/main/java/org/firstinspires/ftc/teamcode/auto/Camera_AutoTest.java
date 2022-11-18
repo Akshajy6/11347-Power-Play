@@ -142,7 +142,8 @@ public class Camera_AutoTest extends LinearOpMode
             sleep(20);
         }
 
-        //
+        //This will place a cone on the tall pole and then using the april tag data park
+        //This code does need some tuning but it sort of works
         // The START command just came in: now work off the latest snapshot acquired
         // during the init loop.
         //Left to high pole
@@ -208,7 +209,8 @@ public class Camera_AutoTest extends LinearOpMode
         }
 
 
-//**IMPORTANT** The sleep values are assuming each square is 600ms long
+//      **THIS CODE DOESN'T WORK CURRENTLY AND NEEDS TO BE FIXED**
+//      **IMPORTANT** The sleep values are assuming each square is 600ms long
         // Actually do something useful
         if(tagOfInterest == null)
         {
@@ -326,7 +328,10 @@ public class Camera_AutoTest extends LinearOpMode
 
             //Parking scoring auto code
             if (id == 0) {
+                //Should Park on the left of id 1
+                //Sorta Works
                 //Go right to where april tag cone started
+                //This should be the same for all but tag == null
                 fl.setPower(-p);
                 fr.setPower(p);
                 bl.setPower(p);
@@ -341,12 +346,14 @@ public class Camera_AutoTest extends LinearOpMode
                 sleep(1000);
 
             } else if (id == 1) {
+                //Should park in the square in from of where the robot started
                 //Go right to where april tag cone started
+                //This should be the same for all but tag == null
                 fl.setPower(-p);
                 fr.setPower(p);
                 bl.setPower(p);
                 br.setPower(-p);
-                sleep(3600);
+                sleep(2500);
 
                 //I have no idea what this section is for tbh
                 fl.setPower(-p);
@@ -356,12 +363,14 @@ public class Camera_AutoTest extends LinearOpMode
                 sleep(200);
 
             } else {
+                //Parks on the square to the right of id 1
                 //Go right to where april tag cone started
+                //This should be the same for all but tag == null
                 fl.setPower(-p);
                 fr.setPower(p);
                 bl.setPower(p);
                 br.setPower(-p);
-                sleep(3600);
+                sleep(2500);
 
                 //Go forward to parking space
                 fl.setPower(-p);
@@ -372,6 +381,7 @@ public class Camera_AutoTest extends LinearOpMode
             }
 
             //Turn to straighten orientation for TeleOp
+            // Don't remove will center robot after parking
             fl.setPower(p);
             fr.setPower(-p);
             bl.setPower(p);
@@ -379,8 +389,6 @@ public class Camera_AutoTest extends LinearOpMode
             sleep(715);
         }
 
-
-        //You wouldn't have this in your autonomous, this is just to prevent the sample from ending
     }
 
     void tagToTelemetry(AprilTagDetection detection)
