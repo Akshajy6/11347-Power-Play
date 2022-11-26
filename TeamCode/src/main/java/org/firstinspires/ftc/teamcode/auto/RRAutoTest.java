@@ -17,24 +17,47 @@ public class RRAutoTest extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
+        DcMotor i = hardwareMap.dcMotor.get("i");
 
-        Pose2d startpose = new Pose2d(36, -60);
+        Pose2d startpose = new Pose2d(-31, 64, Math.toRadians(180));
 
         drive.setPoseEstimate(startpose);
 
-        TrajectorySequence ts = drive.trajectorySequenceBuilder(startpose)
-                .back(24)
+        TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startpose)
+                .forward(5)
+                .strafeLeft(6)
                 .turn(Math.toRadians(90))
-                .forward(44)
-                .turn(Math.toRadians(38))
-//                .addDisplacementMarker(48, () -> l.setPower(-0.5))
-//                .addDisplacementMarker(48, () -> r.setPower(0.5))
+                .forward(38)
+                .strafeLeft(16)
+                .addDisplacementMarker(50, () -> {
+                    l.setPower(0.8);
+                    r.setPower(0.8);
+                })
+                .forward(4)
+                .addDisplacementMarker(69, () -> {
+                    i.setPower(0.8);
+                })
+                .back(4)
                 .build();
+
+//        TrajectorySequence toHighPole = drive.trajectorySequenceBuilder(startpose)
+//                .forward(4)
+//                .lineToLinearHeading(new Pose2d(-36, 12, Math.toRadians(325)))
+//                .addDisplacementMarker(35, () -> {
+//                    l.setPower(0.8);
+//                    r.setPower(0.8);
+//                })
+//                .forward(4)
+//                .addDisplacementMarker(58, () -> {
+//                    i.setPower(0.8);
+//                })
+//                .back(4)
+//                .build();
 
         waitForStart();
 
         if(!isStopRequested()) {
-            drive.followTrajectorySequence(ts);
+            drive.followTrajectorySequence(scoreHighPole);
         }
     }
 }
