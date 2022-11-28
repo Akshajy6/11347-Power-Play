@@ -38,21 +38,17 @@ public class RRAutoTest extends LinearOpMode {
                     i.setPower(0.8);
                 })
                 .back(4)
+                .addDisplacementMarker(() -> {
+                    l.setPower(0);
+                    r.setPower(0);
+                })
+                .turn(Math.toRadians(-90))
+                .forward(16) //or more to go to stack of cones
+                //Raise dr4b, go forward, let it down on top of cones to intake
+                //Then score on high goal
+                //Repeat to cycle
+                //Park
                 .build();
-
-//        TrajectorySequence toHighPole = drive.trajectorySequenceBuilder(startpose)
-//                .forward(4)
-//                .lineToLinearHeading(new Pose2d(-36, 12, Math.toRadians(325)))
-//                .addDisplacementMarker(35, () -> {
-//                    l.setPower(0.8);
-//                    r.setPower(0.8);
-//                })
-//                .forward(4)
-//                .addDisplacementMarker(58, () -> {
-//                    i.setPower(0.8);
-//                })
-//                .back(4)
-//                .build();
 
         waitForStart();
 
