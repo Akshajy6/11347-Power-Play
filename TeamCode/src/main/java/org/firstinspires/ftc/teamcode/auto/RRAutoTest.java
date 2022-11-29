@@ -17,24 +17,39 @@ public class RRAutoTest extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
+        DcMotor i = hardwareMap.dcMotor.get("i");
 
-        Pose2d startpose = new Pose2d(36, -60);
+        Pose2d startpose = new Pose2d(-31, 64, Math.toRadians(180));
 
         drive.setPoseEstimate(startpose);
 
-        TrajectorySequence ts = drive.trajectorySequenceBuilder(startpose)
-                .back(24)
+        TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startpose)
+                .forward(4)
+                .strafeLeft(6)
                 .turn(Math.toRadians(90))
-                .forward(44)
-                .turn(Math.toRadians(38))
-//                .addDisplacementMarker(48, () -> l.setPower(-0.5))
-//                .addDisplacementMarker(48, () -> r.setPower(0.5))
+                .forward(38)
+                .strafeLeft(14)
+                .addDisplacementMarker(45, () -> {
+                    l.setPower(0.8);
+                    r.setPower(0.8);
+                })
+                .addDisplacementMarker(64, () -> {
+                    i.setPower(0.8);
+                })
+                .back(4)
+                .addDisplacementMarker(() -> {
+                    l.setPower(0);
+                    r.setPower(0);
+                    i.setPower(0);
+                })
+                .turn(Math.toRadians(-90))
+                .forward(32)
                 .build();
 
         waitForStart();
 
         if(!isStopRequested()) {
-            drive.followTrajectorySequence(ts);
+            drive.followTrajectorySequence(scoreHighPole);
         }
     }
 }
