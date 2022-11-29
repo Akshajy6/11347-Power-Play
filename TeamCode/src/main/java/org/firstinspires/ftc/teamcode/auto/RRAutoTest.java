@@ -24,30 +24,26 @@ public class RRAutoTest extends LinearOpMode {
         drive.setPoseEstimate(startpose);
 
         TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startpose)
-                .forward(5)
+                .forward(4)
                 .strafeLeft(6)
                 .turn(Math.toRadians(90))
                 .forward(38)
-                .strafeLeft(16)
-                .addDisplacementMarker(50, () -> {
+                .strafeLeft(14)
+                .addDisplacementMarker(45, () -> {
                     l.setPower(0.8);
                     r.setPower(0.8);
                 })
-                .forward(4)
-                .addDisplacementMarker(69, () -> {
+                .addDisplacementMarker(64, () -> {
                     i.setPower(0.8);
                 })
                 .back(4)
                 .addDisplacementMarker(() -> {
                     l.setPower(0);
                     r.setPower(0);
+                    i.setPower(0);
                 })
                 .turn(Math.toRadians(-90))
-                .forward(16) //or more to go to stack of cones
-                //Raise dr4b, go forward, let it down on top of cones to intake
-                //Then score on high goal
-                //Repeat to cycle
-                //Park
+                .forward(32)
                 .build();
 
         waitForStart();
