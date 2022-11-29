@@ -28,22 +28,51 @@ public class RRAutoTest extends LinearOpMode {
                 .strafeLeft(6)
                 .turn(Math.toRadians(90))
                 .forward(38)
-                .strafeLeft(14)
+                .strafeLeft(17)
                 .addDisplacementMarker(45, () -> {
-                    l.setPower(0.8);
-                    r.setPower(0.8);
+                    l.setPower(0.7);
+                    r.setPower(0.7);
                 })
                 .addDisplacementMarker(64, () -> {
                     i.setPower(0.8);
                 })
-                .back(4)
                 .addDisplacementMarker(() -> {
                     l.setPower(0);
                     r.setPower(0);
                     i.setPower(0);
                 })
+                .back(2.5)
                 .turn(Math.toRadians(-90))
-                .forward(32)
+                .forward(26.45)
+                .addDisplacementMarker(71, () -> {
+                    l.setPower(0.6);
+                    r.setPower(0.6);
+                })
+                .addDisplacementMarker(86, ()-> {
+                    l.setPower(0);
+                    r.setPower(0);
+                })
+                .addDisplacementMarker(91, () -> {
+                    i.setPower(-0.8);
+                })
+                .addDisplacementMarker(96,()->{
+                    l.setPower(0.7);
+                    r.setPower(0.7);
+                    i.setPower(0);
+                })
+                .back(29.5)
+                .turn(Math.toRadians(90))
+                .forward(3)
+                .addDisplacementMarker(135,()-> {
+                    i.setPower(0.8);
+                })
+                .addDisplacementMarker(145, () -> {
+                    i.setPower(0);
+                    l.setPower(0);
+                    r.setPower(0);
+                })
+                .back(4)
+
                 .build();
 
         waitForStart();
