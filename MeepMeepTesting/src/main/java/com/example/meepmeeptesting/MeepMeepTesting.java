@@ -16,12 +16,12 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-24, 64, Math.toRadians(180)))
+                        drive.trajectorySequenceBuilder(new Pose2d(-30, 64, Math.toRadians(180)))
                                 .forward(4)
                         .strafeLeft(6)
                         .turn(Math.toRadians(90))
-                        .forward(38)
-                        .strafeLeft(17)
+                        .forward(47)
+                        .strafeLeft(10.5)
                         .addDisplacementMarker(45, () -> {
 //                            l.setPower(0.7);
 //                            r.setPower(0.7);
@@ -34,9 +34,9 @@ public class MeepMeepTesting {
 //                            r.setPower(0);
 //                            i.setPower(0);
                         })
-                        .back(2.5)
+                        .back(1.5)
                         .turn(Math.toRadians(-90))
-                        .forward(26.45)
+                        .forward(32)
                         .addDisplacementMarker(71, () -> {
 //                            l.setPower(0.6);
 //                            r.setPower(0.6);
@@ -53,9 +53,9 @@ public class MeepMeepTesting {
 //                            r.setPower(0.7);
 //                            i.setPower(0);
                         })
-                        .back(29.5)
+                        .back(32)
                         .turn(Math.toRadians(90))
-                        .forward(3)
+                        .forward(2)
                         .addDisplacementMarker(135,()-> {
 //                            i.setPower(0.8);
                         })
@@ -64,7 +64,7 @@ public class MeepMeepTesting {
 //                            l.setPower(0);
 //                            r.setPower(0);
                         })
-                        .back(4)
+                        .back(2)
 
                         .build()
                 );

@@ -27,8 +27,8 @@ public class RRAutoTest extends LinearOpMode {
                 .forward(4)
                 .strafeLeft(6)
                 .turn(Math.toRadians(90))
-                .forward(38)
-                .strafeLeft(17)
+                .forward(47)
+                .strafeLeft(10.5)
                 .addDisplacementMarker(45, () -> {
                     l.setPower(0.7);
                     r.setPower(0.7);
@@ -41,9 +41,9 @@ public class RRAutoTest extends LinearOpMode {
                     r.setPower(0);
                     i.setPower(0);
                 })
-                .back(2.5)
+                .back(1.5)
                 .turn(Math.toRadians(-90))
-                .forward(26.45)
+                .forward(32)
                 .addDisplacementMarker(71, () -> {
                     l.setPower(0.6);
                     r.setPower(0.6);
@@ -60,9 +60,9 @@ public class RRAutoTest extends LinearOpMode {
                     r.setPower(0.7);
                     i.setPower(0);
                 })
-                .back(29.5)
+                .back(32)
                 .turn(Math.toRadians(90))
-                .forward(3)
+                .forward(2)
                 .addDisplacementMarker(135,()-> {
                     i.setPower(0.8);
                 })
@@ -71,8 +71,7 @@ public class RRAutoTest extends LinearOpMode {
                     l.setPower(0);
                     r.setPower(0);
                 })
-                .back(4)
-
+                .back(2)
                 .build();
 
         waitForStart();
