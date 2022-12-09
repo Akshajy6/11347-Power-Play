@@ -15,63 +15,80 @@ public class RRAutoTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
         DcMotor i = hardwareMap.dcMotor.get("i");
+        i.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        Pose2d startpose = new Pose2d(-31, 64, Math.toRadians(180));
+        Pose2d startPose= new Pose2d(-31, 64, Math.toRadians(180));
 
-        drive.setPoseEstimate(startpose);
+        drive.setPoseEstimate(startPose);
 
-        TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startpose)
+        TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startPose)
                 .forward(4)
                 .strafeLeft(6)
                 .turn(Math.toRadians(90))
-                .forward(47)
-                .strafeLeft(10.5)
+                .forward(34)
+                .strafeLeft(14.5)
                 .addDisplacementMarker(45, () -> {
                     l.setPower(0.7);
                     r.setPower(0.7);
                 })
-                .addDisplacementMarker(64, () -> {
+                .forward(5)
+                .addDisplacementMarker(63.5, () -> {
                     i.setPower(0.8);
                 })
-                .addDisplacementMarker(() -> {
-                    l.setPower(0);
-                    r.setPower(0);
-                    i.setPower(0);
-                })
-                .back(1.5)
-                .turn(Math.toRadians(-90))
-                .forward(32)
-                .addDisplacementMarker(71, () -> {
-                    l.setPower(0.6);
-                    r.setPower(0.6);
-                })
-                .addDisplacementMarker(86, ()-> {
-                    l.setPower(0);
-                    r.setPower(0);
-                })
-                .addDisplacementMarker(91, () -> {
-                    i.setPower(-0.8);
-                })
-                .addDisplacementMarker(96,()->{
-                    l.setPower(0.7);
-                    r.setPower(0.7);
-                    i.setPower(0);
-                })
-                .back(32)
-                .turn(Math.toRadians(90))
-                .forward(2)
-                .addDisplacementMarker(135,()-> {
-                    i.setPower(0.8);
-                })
-                .addDisplacementMarker(145, () -> {
+                .back(3)
+                .addDisplacementMarker(65, () -> {
                     i.setPower(0);
                     l.setPower(0);
                     r.setPower(0);
                 })
-                .back(2)
+//                .turn(Math.toRadians(-90))
+//                .forward(30)
+//                .addDisplacementMarker(90, ()-> {
+//                    l.setPower(0);
+//                    r.setPower(0);
+//                })
+//                .addDisplacementMarker(96, () -> {
+//                    i.setPower(-0.8);
+//                    l.setPower(0.8);
+//                    r.setPower(0.8);
+//                })
+//                .back(5)
+//                .addDisplacementMarker(() -> {
+//                    l.setPower(0);
+//                    r.setPower(0);
+//                })
+//                .back(27)
+//                .addDisplacementMarker(115, () -> {
+//                    l.setPower(0.8);
+//                    r.setPower(0.8);
+//                })
+//                .turn(Math.toRadians(90))
+//                .forward(2)
+//                .addDisplacementMarker(127,()-> {
+//                    i.setPower(0.8);
+//                })
+//                .back(5)
+//                .addDisplacementMarker(() -> {
+//                    i.setPower(0);
+//                    l.setPower(0);
+//                    r.setPower(0);
+//                })
+                .build();
+
+        TrajectorySequence parkLeft = drive.trajectorySequenceBuilder(scoreHighPole.end())
+                .strafeLeft(12)
+                .build();
+
+        TrajectorySequence parkMid = drive.trajectorySequenceBuilder(scoreHighPole.end())
+                .strafeRight(12)
+                .build();
+
+        TrajectorySequence parkRight = drive.trajectorySequenceBuilder(scoreHighPole.end())
+                .strafeLeft(24)
                 .build();
 
         waitForStart();

@@ -66,22 +66,23 @@ public class MecanumTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated
             }
 
-            //Mode selection
-            if (!p2.left_bumper && c2.left_bumper) {
-                manual = !manual;
-                if (manual) {
-                    gamepad2.rumble(250);
-                } else {
-                    gamepad2.rumble(250);
-                    sleep(500);
-                    gamepad2.rumble(250);
-                }
-            }
+            fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+                    //Mode selection
+//            if (!p2.left_bumper && c2.left_bumper) {
+//                manual = !manual;
+//                if (manual) {
+//                    gamepad2.rumble(250);
+//                } else {
+//                    gamepad2.rumble(250);
+//                    sleep(500);
+//                    gamepad2.rumble(250);
+//                }
+//            }
 
-
-            if (manual) {
-                //Manual mode
-                fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+//
+//            if (manual) {
+//                //Manual mode
+//                fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
 //            } else { //IF THIS DOESNT WORK USE CONTROL VARIABLES FOR EACH PID MODE (condition || mode engaged)
 //                //PID mode
 //                if (!p2.right_bumper && c2.right_bumper) { //Intake height
@@ -97,7 +98,7 @@ public class MecanumTeleOp extends LinearOpMode {
 //                } else {
 //                    fb.runManual(0, 0);
 //                }
-            }
+//            }
         }
     }
 }

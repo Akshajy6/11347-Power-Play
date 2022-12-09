@@ -16,55 +16,26 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-30, 64, Math.toRadians(180)))
+                        drive.trajectorySequenceBuilder(new Pose2d(-31, 64, Math.toRadians(180)))
                                 .forward(4)
-                        .strafeLeft(6)
-                        .turn(Math.toRadians(90))
-                        .forward(47)
-                        .strafeLeft(10.5)
-                        .addDisplacementMarker(45, () -> {
-//                            l.setPower(0.7);
-//                            r.setPower(0.7);
-                        })
-                        .addDisplacementMarker(64, () -> {
-//                            i.setPower(0.8);
-                        })
-                        .addDisplacementMarker(() -> {
-//                            l.setPower(0);
-//                            r.setPower(0);
-//                            i.setPower(0);
-                        })
-                        .back(1.5)
-                        .turn(Math.toRadians(-90))
-                        .forward(32)
-                        .addDisplacementMarker(71, () -> {
-//                            l.setPower(0.6);
-//                            r.setPower(0.6);
-                        })
-                        .addDisplacementMarker(86, ()-> {
-//                            l.setPower(0);
-//                            r.setPower(0);
-                        })
-                        .addDisplacementMarker(91, () -> {
-//                            i.setPower(-0.8);
-                        })
-                        .addDisplacementMarker(96,()->{
-//                            l.setPower(0.7);
-//                            r.setPower(0.7);
-//                            i.setPower(0);
-                        })
-                        .back(32)
-                        .turn(Math.toRadians(90))
-                        .forward(2)
-                        .addDisplacementMarker(135,()-> {
-//                            i.setPower(0.8);
-                        })
-                        .addDisplacementMarker(145, () -> {
-//                            i.setPower(0);
-//                            l.setPower(0);
-//                            r.setPower(0);
-                        })
-                        .back(2)
+                                .strafeLeft(6)
+                                .turn(Math.toRadians(90))
+                                .forward(34)
+                                .strafeLeft(14.5)
+                                .addDisplacementMarker(45, () -> {
+//                                    l.setPower(0.7);
+//                                    r.setPower(0.7);
+                                })
+                                .forward(5)
+                                .addDisplacementMarker(63.5, () -> {
+//                                    i.setPower(0.8);
+                                })
+                                .back(3)
+                                .addDisplacementMarker(65, () -> {
+//                                    i.setPower(0);
+//                                    l.setPower(0);
+//                                    r.setPower(0);
+                                })
 
                         .build()
                 );
