@@ -116,7 +116,27 @@ public class NewAuto extends LinearOpMode
                 })
                 .turn(Math.toRadians(-90))
                 .forward(36)
+                .addDisplacementMarker(110, () -> {
+                    l.setPower(0.8);
+                    r.setPower(0.8);
+                })
+                .addDisplacementMarker(115, () -> {
+                    l.setPower(0);
+                    r.setPower(0);
+                })
+                .addDisplacementMarker(116.5, () -> {
+                    i.setPower(-0.8);
+                })
+                .waitSeconds(1)
+                .addDisplacementMarker(() -> {
+                    l.setPower(0.8);
+                    r.setPower(0.8);
+                })
+                .back(36)
                 .addDisplacementMarker()
+                .turn(Math.toRadians(90))
+                .forward(4)
+                .addDisp
                 .build();
 
         TrajectorySequence parkLeft = drive.trajectorySequenceBuilder(scoreHighPole.end())
