@@ -88,69 +88,75 @@ public class NewAuto extends LinearOpMode
         DcMotor i = hardwareMap.dcMotor.get("i");
         i.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        Pose2d startPose = new Pose2d(-31, 64, Math.toRadians(180));
+        Pose2d startPose= new Pose2d(-33, 64, Math.toRadians(270));
 
         drive.setPoseEstimate(startPose);
 
-        telemetry.setMsTransmissionInterval(50);
-
         TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startPose)
-                .forward(5)
-                .strafeLeft(6)
-                .turn(Math.toRadians(90))
-                .forward(41)
-                .strafeLeft(19)
-                .addDisplacementMarker(61, () -> {
+                .strafeRight(8)
+                .forward(70)
+                .strafeLeft(22)
+                .addDisplacementMarker(80, () -> {
                     l.setPower(0.8);
                     r.setPower(0.8);
                 })
-                .forward(5.5)
-                .addDisplacementMarker(76.5, () -> {
+                .addDisplacementMarker(101, () -> {
                     i.setPower(0.8);
                 })
-                .back(4)
-                .addDisplacementMarker(78, () -> {
-                    i.setPower(0);
-                    l.setPower(0);
-                    r.setPower(0);
-                })
-                .turn(Math.toRadians(-90))
-                .forward(36)
-                .addDisplacementMarker(110, () -> {
-                    l.setPower(0.8);
-                    r.setPower(0.8);
-                })
-                .addDisplacementMarker(115, () -> {
-                    l.setPower(0);
-                    r.setPower(0);
-                })
-                .addDisplacementMarker(116.5, () -> {
-                    i.setPower(-0.8);
-                })
+                .waitSeconds(0.5)
+//                .addDisplacementMarker(() -> {
+//                    l.setPower(0.8);
+//                    r.setPower(0.8);
+//                    i.setPower(0);
+//                })
                 .waitSeconds(1)
-                .addDisplacementMarker(() -> {
-                    l.setPower(0.8);
-                    r.setPower(0.8);
-                })
-                .back(36)
-                .addDisplacementMarker()
-                .turn(Math.toRadians(90))
-                .forward(4)
-                .addDisp
+//                .turn(Math.toRadians(-90))
+//                .forward(48)
+//                .addDisplacementMarker(135, () -> {
+//                    l.setPower(0);
+//                    r.setPower(0);
+//                    i.setPower(0);
+//                })
+//                .addDisplacementMarker(159, () -> {
+//                    i.setPower(-0.8);
+//                })
+//                .waitSeconds(0.5)
+//                .addDisplacementMarker(() -> {
+//                    l.setPower(0.8);
+//                    r.setPower(0.8);
+//                })
+//                .waitSeconds(2)
+//                .back(40)
+//                .turn(Math.toRadians(90))
+//                .strafeLeft(8)
                 .build();
 
-        TrajectorySequence parkLeft = drive.trajectorySequenceBuilder(scoreHighPole.end())
-                .strafeLeft(15)
+        TrajectorySequence basicParkLeft = drive.trajectorySequenceBuilder(startPose)
+                .forward(36)
+                .strafeLeft(24)
                 .build();
 
-        TrajectorySequence parkMid = drive.trajectorySequenceBuilder(scoreHighPole.end())
-                .strafeRight(12)
+        TrajectorySequence basicParkMid = drive.trajectorySequenceBuilder(startPose)
+                .forward(36)
+                .strafeRight(3)
                 .build();
 
-        TrajectorySequence parkRight = drive.trajectorySequenceBuilder(scoreHighPole.end())
-                .strafeRight(33)
+        TrajectorySequence basicParkRight = drive.trajectorySequenceBuilder(startPose)
+                .forward(36)
+                .strafeRight(48)
                 .build();
 
+        TrajectorySequence parkLeft = drive.trajectorySequenceBuilder(startPose)
+                .strafeLeft(24)
+                .build();
+
+        TrajectorySequence parkMid = drive.trajectorySequenceBuilder(startPose)
+                .strafeRight(3)
+                .build();
+
+        TrajectorySequence parkRight = drive.trajectorySequenceBuilder(startPose)
+                .strafeRight(48)
+                .build();
 
         //
         // The INIT-loop:
@@ -243,26 +249,24 @@ public class NewAuto extends LinearOpMode
         {
             int id = tagOfInterest.id;
             //Cone scoring auto code with parking
-            drive.followTrajectorySequence(scoreHighPole);
+//            drive.followTrajectorySequence(scoreHighPole);
             if (id == 0) {
                 //Park left
-                drive.followTrajectorySequence(parkLeft);
+                drive.followTrajectorySequence(basicParkLeft);
             } else if (id == 1) {
                 //Park mid
-                drive.followTrajectorySequence(parkMid);
+                drive.followTrajectorySequence(basicParkMid);
             } else {
                 //Park right
-                drive.followTrajectorySequence(parkRight);
+                drive.followTrajectorySequence(basicParkRight);
             }
         }
-
-
-        //You wouldn't have this in your autonomous, this is just to prevent the sample from ending
     }
 
     void tagToTelemetry(AprilTagDetection detection)
     {
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+        telemetry.addLine(String.format("\nParking spot %d", detection.id + 1));
         telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
         telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
         telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
