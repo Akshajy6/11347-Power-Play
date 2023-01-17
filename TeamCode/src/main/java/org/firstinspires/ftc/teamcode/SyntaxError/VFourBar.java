@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class VFourBar {
     final private DcMotor l;
     final private DcMotor r;
-    final private DcMotor i;
+    final private DcMotor i; //Virtual Fourbar Motor
     final private CRServo sL;
     final private CRServo sR;
 

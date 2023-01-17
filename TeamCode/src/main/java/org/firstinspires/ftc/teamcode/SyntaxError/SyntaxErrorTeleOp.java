@@ -69,7 +69,7 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
 
             //Mecanum drivetrain code
             if (SyntaxError_drivetrain.drive(c1.left_stick_y, -c1.left_stick_x, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
-                gamepad1.rumble(250); //Angle recalibrated
+                gamepad1.rumble(250); //Angle recalibrated, add *1.1 for counter straifing if needed, test first
             }
 
             Vfb.VrunManual(-c2.right_stick_y, c2.left_stick_y, c2.left_trigger - c2.right_trigger);
