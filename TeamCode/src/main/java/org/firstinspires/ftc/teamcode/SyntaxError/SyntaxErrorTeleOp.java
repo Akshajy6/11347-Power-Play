@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mecanum;
+package org.firstinspires.ftc.teamcode.SyntaxError;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,10 +7,13 @@ import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.SyntaxError.SyntaxErrorDB;
+import org.firstinspires.ftc.teamcode.SyntaxError.VFourBar;
+
 @TeleOp
 public class SyntaxErrorTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
-    SyntaxErrorMecanum SyntaxError_drivetrain;
+    SyntaxErrorDB SyntaxError_drivetrain;
     VFourBar Vfb;
 
     //Four bar positions
@@ -42,7 +45,7 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
-        SyntaxError_drivetrain = new SyntaxErrorMecanum(fl, fr, bl, br, imu);
+        SyntaxError_drivetrain = new SyntaxErrorDB(fl, fr, bl, br, imu);
         Vfb = new VFourBar(l, r, i);
 
         waitForStart();

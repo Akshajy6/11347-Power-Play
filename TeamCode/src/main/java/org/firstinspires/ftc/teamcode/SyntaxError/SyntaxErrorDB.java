@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.mecanum;
+package org.firstinspires.ftc.teamcode.SyntaxError;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class SyntaxErrorMecanum {
+public class SyntaxErrorDB {
     private DcMotor fl;
     private DcMotor fr;
     private DcMotor bl;
@@ -12,7 +12,7 @@ public class SyntaxErrorMecanum {
     private BNO055IMU imu;
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
-    public SyntaxErrorMecanum(DcMotor m1, DcMotor m2, DcMotor m3, DcMotor m4, BNO055IMU imu1) {
+    public SyntaxErrorDB(DcMotor m1, DcMotor m2, DcMotor m3, DcMotor m4, BNO055IMU imu1) {
         fl = m1;
         fr = m2;
         bl = m3;
