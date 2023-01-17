@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -42,11 +43,13 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
         DcMotor i = hardwareMap.dcMotor.get("i");
+        CRServo sL = hardwareMap.crservo.get("sL");
+        CRServo sR = hardwareMap.crservo.get("sR");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         SyntaxError_drivetrain = new SyntaxErrorDB(fl, fr, bl, br, imu);
-        Vfb = new VFourBar(l, r, i);
+        Vfb = new VFourBar(l, r, i, sL, sR);
 
         waitForStart();
 
@@ -69,7 +72,7 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated
             }
 
-            Vfb.VrunManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+            Vfb.VrunManual(-c2.right_stick_y, c2.left_stick_y, c2.left_trigger - c2.right_trigger);
         }
     }
 }
