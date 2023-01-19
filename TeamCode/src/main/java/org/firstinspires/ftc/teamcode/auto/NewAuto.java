@@ -88,7 +88,7 @@ public class NewAuto extends LinearOpMode
         DcMotor i = hardwareMap.dcMotor.get("i");
         i.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        Pose2d startPose= new Pose2d(-33, 64, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(-33, 64, Math.toRadians(270));
 
         drive.setPoseEstimate(startPose);
 
@@ -252,12 +252,15 @@ public class NewAuto extends LinearOpMode
 //            drive.followTrajectorySequence(scoreHighPole);
             if (id == 0) {
                 //Park left
+                drive.followTrajectorySequence(parkLeft);
                 drive.followTrajectorySequence(basicParkLeft);
             } else if (id == 1) {
                 //Park mid
+                drive.followTrajectorySequence(parkMid);
                 drive.followTrajectorySequence(basicParkMid);
             } else {
                 //Park right
+                drive.followTrajectorySequence(parkRight);
                 drive.followTrajectorySequence(basicParkRight);
             }
         }
