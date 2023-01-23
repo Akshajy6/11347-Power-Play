@@ -95,7 +95,7 @@ public class NewAuto extends LinearOpMode
         TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(8)
                 .forward(70)
-                .strafeLeft(22)
+                .strafeLeft(22) 
                 .addDisplacementMarker(80, () -> {
                     l.setPower(0.8);
                     r.setPower(0.8);
@@ -253,15 +253,15 @@ public class NewAuto extends LinearOpMode
             if (id == 0) {
                 //Park left
                 drive.followTrajectorySequence(parkLeft);
-                drive.followTrajectorySequence(basicParkLeft);
+//                drive.followTrajectorySequence(basicParkLeft);
             } else if (id == 1) {
                 //Park mid
                 drive.followTrajectorySequence(parkMid);
-                drive.followTrajectorySequence(basicParkMid);
+//                drive.followTrajectorySequence(basicParkMid);
             } else {
                 //Park right
                 drive.followTrajectorySequence(parkRight);
-                drive.followTrajectorySequence(basicParkRight);
+//                drive.followTrajectorySequence(basicParkRight);
             }
         }
     }
