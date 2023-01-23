@@ -93,7 +93,7 @@ public class NewAuto extends LinearOpMode
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startPose)
-                .strafeRight(8)
+                .strafeRight(22)
                 .forward(70)
                 .strafeLeft(22) 
                 .addDisplacementMarker(80, () -> {
