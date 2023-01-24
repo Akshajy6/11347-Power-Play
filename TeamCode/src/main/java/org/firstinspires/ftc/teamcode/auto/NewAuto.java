@@ -93,42 +93,42 @@ public class NewAuto extends LinearOpMode
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence scoreHighPole = drive.trajectorySequenceBuilder(startPose)
-                .strafeRight(22)
-                .forward(70)
-                .strafeLeft(22) 
-                .addDisplacementMarker(80, () -> {
+                .strafeRight(8)
+                .forward(72)
+                .strafeLeft(26)
+                .addDisplacementMarker(75, () -> {
+                    l.setPower(0.8);
+                    r.setPower(-0.8);
+                })
+                .addDisplacementMarker(109, () -> {
+                    i.setPower(0.8);
+                })
+                .strafeRight(10)
+                .addDisplacementMarker(110, () -> {
+                    i.setPower(0);
+                })
+                .turn(Math.toRadians(-90))
+                .forward(45.5)
+                .addDisplacementMarker(140, () -> {
+                    l.setPower(0);
+                    r.setPower(0);
+                })
+                .addDisplacementMarker(160, () -> {
+                    i.setPower(-0.8);
+                })
+                .waitSeconds(0.25)
+                .addDisplacementMarker(() -> {
                     l.setPower(0.8);
                     r.setPower(0.8);
                 })
-                .addDisplacementMarker(101, () -> {
+                .waitSeconds(1)
+                .back(40)
+                .turn(Math.toRadians(90))
+                .strafeLeft(11)
+                .forward(2)
+                .addDisplacementMarker(200, () -> {
                     i.setPower(0.8);
                 })
-                .waitSeconds(0.5)
-//                .addDisplacementMarker(() -> {
-//                    l.setPower(0.8);
-//                    r.setPower(0.8);
-//                    i.setPower(0);
-//                })
-                .waitSeconds(1)
-//                .turn(Math.toRadians(-90))
-//                .forward(48)
-//                .addDisplacementMarker(135, () -> {
-//                    l.setPower(0);
-//                    r.setPower(0);
-//                    i.setPower(0);
-//                })
-//                .addDisplacementMarker(159, () -> {
-//                    i.setPower(-0.8);
-//                })
-//                .waitSeconds(0.5)
-//                .addDisplacementMarker(() -> {
-//                    l.setPower(0.8);
-//                    r.setPower(0.8);
-//                })
-//                .waitSeconds(2)
-//                .back(40)
-//                .turn(Math.toRadians(90))
-//                .strafeLeft(8)
                 .build();
 
         TrajectorySequence basicParkLeft = drive.trajectorySequenceBuilder(startPose)
