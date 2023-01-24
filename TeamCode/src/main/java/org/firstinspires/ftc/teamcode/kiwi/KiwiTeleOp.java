@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.kiwi;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
+@Disabled
 public class KiwiTeleOp extends LinearOpMode {
     KiwiDrive drivebase;
     Gamepad p = new Gamepad();
