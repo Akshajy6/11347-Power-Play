@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
+@Disabled
 public class EncoderTesting extends LinearOpMode {
 
     @Override

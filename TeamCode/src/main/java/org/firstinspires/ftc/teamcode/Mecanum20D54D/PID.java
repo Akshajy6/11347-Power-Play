@@ -18,18 +18,13 @@ public class PID {
 
     public double update(double state, double target) {
         // calculating error
-
         double error = target - state;
-
         // rate of change of the error
         double derivative = (error - lastError) / timer.seconds();
-
         // sum of all error over time
         integral += (error * timer.seconds());
-
         // PID equation
         double output = (p * error) + (i * integral) + (d * derivative);
-
         // updating lastError and resetting timer
         lastError = error;
         timer.reset();

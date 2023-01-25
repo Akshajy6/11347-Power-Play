@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.Mecanum20D54D;
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class FourBar {
+public class FourBar extends SubsystemBase {
     final private DcMotor l;
     final private DcMotor r;
     final private DcMotor i;
+    PID pid = new PID(0.006, 0, 0);
 
     public FourBar(DcMotor lm, DcMotor rm, DcMotor im) {
         l = lm;
@@ -23,12 +26,10 @@ public class FourBar {
         i.setPower(rp);
     }
 
-    public void runPID(double kp, double ki, double kd, double targetleft, double targetright) {
-        PID pid = new PID(kp, ki, kd);
-        double commandleft = pid.update(l.getCurrentPosition(), targetleft);
-        double commandright = pid.update(r.getCurrentPosition(), targetright);
+    public void runPID(double target) {
+        double command = pid.update(l.getCurrentPosition(), target) + 0.11;
 
-        l.setPower(-commandleft);
-        r.setPower(commandright);
+        l.setPower(command);
+        r.setPower(-command);
     }
 }
