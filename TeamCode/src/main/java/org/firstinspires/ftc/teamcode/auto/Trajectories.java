@@ -22,7 +22,8 @@ public class Trajectories {
 
         toHighPole = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(8)
-                .forward(72)
+                .forward(78)
+                .back(6)
                 .strafeLeft(20)
                 .build();
 
