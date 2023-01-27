@@ -13,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.FourBar;
 import org.firstinspires.ftc.teamcode.auto.apriltag.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -40,7 +41,7 @@ public class CommandAuto extends CommandOpMode {
     AprilTagDetection tagOfInterest = null;
 
 
-    double tagId = 0;
+    int tagId = 0;
 
 
     @Override
@@ -118,6 +119,16 @@ public class CommandAuto extends CommandOpMode {
 
         Trajectories.generateTrajectories(drive); //Loads trajectories from trajectories file
 
+        TrajectorySequence park;
+        switch(tagId){
+            case 0:
+                park = Trajectories.parkLeft;
+            case  1:
+                park = Trajectories.parkMid;
+            default:
+                park = Trajectories.parkRight;
+        }
+
         //The below should be enough for a 1 + 2 cycle, only change drive trajectories if needed (in trajectories file)
         //Put fourbar/intake/outtake commands in the gaps where the comments are
         //Use fb.runPID(700) to raise fourbar to max and fb.runPID(0) to lower fourbar.
@@ -138,16 +149,7 @@ public class CommandAuto extends CommandOpMode {
                         new WaitCommand(500),
                         new InstantCommand(() -> fb.runIntake(0))
                 ),
-                new ParallelCommandGroup(
-                        switch(tagId){
-                            case 0:
-                                new TrajectorySequenceCommand(drive, Trajectories.parkLeft);
-                            case  1:
-                                new TrajectorySequenceCommand(drive, Trajectories.parkMid);
-                            default:
-                                new TrajectorySequenceCommand(drive, Trajectories.parkRight);
-                        }
-                )
+                new TrajectorySequenceCommand(drive, park)
 
         ));
     }
