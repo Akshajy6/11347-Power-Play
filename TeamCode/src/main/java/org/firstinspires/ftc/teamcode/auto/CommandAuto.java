@@ -21,7 +21,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous
+@Autonomous(name = "Right side auto")
 public class CommandAuto extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
@@ -82,7 +82,6 @@ public class CommandAuto extends CommandOpMode {
                     if (tag.id == 0 || tag.id == 1 || tag.id == 2) {
                         tagOfInterest = tag;
                         tagFound = true;
-                        break;
                     }
                     tagId = tag.id;
                 }
@@ -123,8 +122,10 @@ public class CommandAuto extends CommandOpMode {
         switch(tagId){
             case 0:
                 park = Trajectories.parkLeft;
+                break;
             case  1:
                 park = Trajectories.parkMid;
+                break;
             default:
                 park = Trajectories.parkRight;
         }
@@ -139,23 +140,22 @@ public class CommandAuto extends CommandOpMode {
                 new ParallelCommandGroup(
                         new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
                         new SequentialCommandGroup(
-                                new WaitCommand(1000),
-                                new FourbarPID(fb, 700)
+                                new WaitCommand(3000),
+                                new FourbarPID(fb, 650),
+                                new WaitCommand(3450),
+                                new InstantCommand(() -> fb.runIntake(1)),
+                                new WaitCommand(500),
+                                new InstantCommand(() -> fb.runIntake(0))
                         )
 
-                ),
-                new SequentialCommandGroup(
-                        new InstantCommand(() -> fb.runIntake(-1)),
-                        new WaitCommand(500),
-                        new InstantCommand(() -> fb.runIntake(0))
                 ),
                 new TrajectorySequenceCommand(drive, park)
 
         ));
     }
 
-    @Override
-    public void run() {
+//    @Override
+//    public void run() {
         // Run auto based on april tag, dw about it
 //        if (tagOfInterest != null) {
 //            telemetry.addLine("Tag snapshot:\n");
@@ -183,7 +183,7 @@ public class CommandAuto extends CommandOpMode {
 //                drive.followTrajectorySequence(Trajectories.parkRight);
 //            }
 //        }
-    }
+//    }
 
     void tagToTelemetry(AprilTagDetection detection) {
         telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));

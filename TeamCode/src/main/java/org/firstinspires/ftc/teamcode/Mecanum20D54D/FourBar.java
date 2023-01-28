@@ -8,7 +8,7 @@ public class FourBar extends SubsystemBase {
     final private DcMotor l;
     final private DcMotor r;
     final private DcMotor i;
-    PID pid = new PID(0.006, 0, 0);
+    PID pid = new PID(0.008, 0, 0);
 
     public FourBar(DcMotor lm, DcMotor rm, DcMotor im) {
         l = lm;
