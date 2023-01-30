@@ -23,7 +23,7 @@ public class FourBar extends SubsystemBase {
     public void runManual(double fbp, double rp) {
         l.setPower(fbp);
         r.setPower(-fbp);
-        i.setPower(rp);
+        i.setPower(-rp);
     }
     public void runManual(double fbp) {
         l.setPower(fbp);

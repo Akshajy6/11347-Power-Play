@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import android.net.wifi.aware.WifiAwareNetworkSpecifier;
+
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -21,8 +23,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "1 + park")
-public class CommandAuto extends CommandOpMode {
+@Autonomous(name = "1 + 2 + park NOT WORKING")
+public class CommandAutoB extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
     private DcMotor i;
@@ -140,23 +142,29 @@ public class CommandAuto extends CommandOpMode {
                 new ParallelCommandGroup(
                         new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
                         new SequentialCommandGroup(
-                                new WaitCommand(3000),
-                                new FourbarPID(fb, 650),
-                                new WaitCommand(3450),
+                                new WaitCommand(2000),
+                                new FourbarPID(fb, 665),
+                                new WaitCommand(3550),
                                 new InstantCommand(() -> fb.runIntake(-1)),
+                                new WaitCommand(750),
+                                new InstantCommand(() -> fb.runIntake(0)),
+                                new TrajectorySequenceCommand(drive, Trajectories.toConeStack),
+                                new WaitCommand(1500),
+                                new FourbarPID(fb, 222),
+                                new InstantCommand(() -> fb.runIntake(1)),
                                 new WaitCommand(500),
                                 new InstantCommand(() -> fb.runIntake(0))
                         )
 
-                ),
-                new TrajectorySequenceCommand(drive, park)
+                )//,
+                //new TrajectorySequenceCommand(drive, park)
 
         ));
     }
 
 //    @Override
 //    public void run() {
-        // Run auto based on april tag, dw about it
+    // Run auto based on april tag, dw about it
 //        if (tagOfInterest != null) {
 //            telemetry.addLine("Tag snapshot:\n");
 //            tagToTelemetry(tagOfInterest);
