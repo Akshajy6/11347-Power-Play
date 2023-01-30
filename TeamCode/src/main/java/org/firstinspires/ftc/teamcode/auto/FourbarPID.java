@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.auto;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.FourBar;
-
+//Fourbar PID made by Ryan, its better
 public class FourbarPID extends CommandBase {
 
     private FourBar fb;

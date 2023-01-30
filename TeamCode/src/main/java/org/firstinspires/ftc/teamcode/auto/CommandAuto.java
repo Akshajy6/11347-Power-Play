@@ -130,13 +130,8 @@ public class CommandAuto extends CommandOpMode {
                 park = Trajectories.parkRight;
         }
 
-        //The below should be enough for a 1 + 2 cycle, only change drive trajectories if needed (in trajectories file)
-        //Put fourbar/intake/outtake commands in the gaps where the comments are
-        //Use fb.runPID(700) to raise fourbar to max and fb.runPID(0) to lower fourbar.
-        //For intake, just set positive or negative power and use a wait command after for intake/outtake of cone.
-        //Ask Aarush's help for using ParallelCommandGroup inside the SequentialCommandGroup to move fourbar/intake at the same time while robot is moving.
+        //Does 1 + park most of time, needs some tuning though
         schedule(new SequentialCommandGroup(
-                //lift fourbar to max and score cone
                 new ParallelCommandGroup(
                         new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
                         new SequentialCommandGroup(
