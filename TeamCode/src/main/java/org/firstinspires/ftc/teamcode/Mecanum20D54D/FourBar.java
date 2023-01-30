@@ -20,18 +20,18 @@ public class FourBar extends SubsystemBase {
         r.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void runManual(double fbp, double rp) {
-        l.setPower(fbp);
-        r.setPower(-fbp);
-        i.setPower(-rp);
+    public void runIntake(double power) {
+        i.setPower(power);
     }
+
     public void runManual(double fbp) {
         l.setPower(fbp);
         r.setPower(-fbp);
     }
-
-    public void runIntake(double power) {
-        i.setPower(power);
+    public void runManual(double fbp, double rp) {
+        l.setPower(fbp);
+        r.setPower(-fbp);
+        i.setPower(-rp);
     }
     public void runPID(double target) {
         double command = pid.update(l.getCurrentPosition(), target) + 0.11;
@@ -39,6 +39,7 @@ public class FourBar extends SubsystemBase {
         l.setPower(command);
         r.setPower(-command);
     }
+
     public double currentPosition(){
         return l.getCurrentPosition();
     }
