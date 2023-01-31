@@ -22,7 +22,7 @@ public class FourBarPID extends CommandBase {
     }
     @Override
     public boolean isFinished(){
-        return Math.abs(fb.currentPosition()-target) < 4;
+        return Math.abs(fb.currentPosition()-target) < 20;
     }
     @Override
     public void end(boolean interrupted){
