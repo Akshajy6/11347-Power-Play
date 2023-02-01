@@ -32,7 +32,7 @@ public class Trajectories {
                 .turn(Math.toRadians(-90))
                 .forward(4)
                 .strafeLeft(2.5)
-                .forward(47.5)
+                .forward(47)
                 .build();
 
         backToHighPole = drive.trajectorySequenceBuilder(toConeStack.end())

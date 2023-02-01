@@ -147,11 +147,18 @@ public class CommandAutoB extends CommandOpMode {
                                 new FourBarPID(fb, 222),
                                 new InstantCommand(() -> fb.runIntake(1)),
                                 new WaitCommand(500),
-                                new InstantCommand(() -> fb.runIntake(0))
+                                new InstantCommand(() -> fb.runIntake(0)),
+                                new FourBarPID(fb, 650),
+                                new TrajectorySequenceCommand(drive, Trajectories.backToHighPole),
+                                new WaitCommand(1000),
+                                new InstantCommand(() -> fb.runIntake(-1)),
+                                new WaitCommand(1000),
+                                new InstantCommand(() -> fb.runIntake(0)),
+                                new FourBarPID(fb, 50),
+                                new FourBarPID(fb, 19)
                         )
-
-                ), //This will cause the robot to park
-                new TrajectorySequenceCommand(drive, park)
+                )//, //This will cause the robot to park
+                //new TrajectorySequenceCommand(drive, park)
         ));
     }
 
