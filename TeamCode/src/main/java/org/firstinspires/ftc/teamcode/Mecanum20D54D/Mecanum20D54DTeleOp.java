@@ -67,39 +67,6 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated
             }
             fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
-
-                    //Mode selection
-//            if (!p2.left_bumper && c2.left_bumper) {
-//                manual = !manual;
-//                if (manual) {
-//                    gamepad2.rumble(250);
-//                } else {
-//                    gamepad2.rumble(250);
-//                    sleep(500);
-//                    gamepad2.rumble(250);
-//                }
-//            }
-
-//
-//            if (manual) {
-//                //Manual mode
-//                fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
-//            } else { //IF THIS DOESNT WORK USE CONTROL VARIABLES FOR EACH PID MODE (condition || mode engaged)
-//                //PID mode
-//                if (!p2.right_bumper && c2.right_bumper) { //Intake height
-//                    fb.runPID(10, 0, 0, LEFTCONE, RIGHTCONE); //TUNE AS NEEDED
-//                } else if (!p2.dpad_up && c2.dpad_up) { //High pole
-//                    fb.runPID(10, 0, 0, LEFTHIGH, RIGHTHIGH); //TUNE AS NEEDED
-//                } else if (!p2.dpad_right && c2.dpad_right) { //Medium pole
-//                    fb.runPID(10, 0, 0, LEFTMID, RIGHTMID); //TUNE AS NEEDED
-//                } else if (!p2.dpad_left && c2.dpad_left) { //Low pole
-//                    fb.runPID(10, 0, 0, LEFTLOW, RIGHTLOW); //TUNE AS NEEDED
-//                } else if (!p2.dpad_down && c2.dpad_down) { //Ground junction
-//                    fb.runPID(10, 0, 0, LEFTGROUND, RIGHTGROUND); //TUNE AS NEEDED
-//                } else {
-//                    fb.runManual(0, 0);
-//                }
-//            }
         }
     }
 }

@@ -26,16 +26,7 @@ FieldCentricMecanum {
         imu.initialize(parameters);
     }
 
-    public boolean drive(double y, double x, double rx, boolean p, boolean c) {
-        double angle = -imu.getAngularOrientation().firstAngle;
-        boolean calibrated = false;
-
-        //Recalibrate imu angle
-        if (!p && c) {
-            imu.initialize(parameters);
-            calibrated = true;
-        }
-
+    public void drive(double y, double x, double rx, boolean p, boolean c) {
         //Robot-Centric Mecanum
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double flpwr = (y + x + rx) / denominator;
@@ -47,6 +38,5 @@ FieldCentricMecanum {
         bl.setPower(blpwr);
         fr.setPower(frpwr);
         br.setPower(brpwr);
-        return calibrated;
     }
 }
