@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
 
 @TeleOp
-@Disabled
 public class SyntaxErrorTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
@@ -56,7 +55,7 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
             }
 
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
+            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
                 gamepad1.rumble(250); //Angle recalibrated, add *1.1 for counter strafing if needed, test first
             }
 
