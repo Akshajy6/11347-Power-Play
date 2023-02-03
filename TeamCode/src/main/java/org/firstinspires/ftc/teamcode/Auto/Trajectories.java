@@ -19,7 +19,6 @@ public class Trajectories {
         drive.setPoseEstimate(startPose);
 
         //Change trajectories only if needed
-
         toHighPole = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(8)
                 .forward(78)

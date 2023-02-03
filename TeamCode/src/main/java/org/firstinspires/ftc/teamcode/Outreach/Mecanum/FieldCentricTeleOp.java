@@ -52,9 +52,7 @@ public class FieldCentricTeleOp extends LinearOpMode {
             }
 
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
-                gamepad1.rumble(250); //Angle recalibrated
-            }
+            drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper);
             fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
         }
     }
