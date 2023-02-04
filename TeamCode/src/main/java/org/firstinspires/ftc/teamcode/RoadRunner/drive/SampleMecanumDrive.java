@@ -35,17 +35,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants.kV;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.kA;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.kStatic;
+import static org.firstinspires.ftc.teamcode.RoadRunner.drive.SyntaxErrorDriveConstants.kV;
 
 /*
  * Simple mecanum drive hardware implementation for REV hardware.

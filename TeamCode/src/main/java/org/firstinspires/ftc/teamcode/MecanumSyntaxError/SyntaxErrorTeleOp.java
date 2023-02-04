@@ -1,21 +1,19 @@
 package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
+import org.firstinspires.ftc.teamcode.Mecanum20D54D.FourBar;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
 
 @TeleOp
 public class SyntaxErrorTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
-    VirtualFourBar v4b;
+    FourBar fb;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,14 +29,12 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
         DcMotor br = hardwareMap.dcMotor.get("br");
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
-        DcMotor fb = hardwareMap.dcMotor.get("fb");
-        CRServo il = hardwareMap.crservo.get("il");
-        CRServo ir = hardwareMap.crservo.get("ir");
+        DcMotor i = hardwareMap.dcMotor.get("i");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-        v4b = new VirtualFourBar(l, r, fb, il, ir);
+        fb = new FourBar(l, r, i);
 
         waitForStart();
 
@@ -59,9 +55,7 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated, add *1.1 for counter strafing if needed, test first
             }
 
-            v4b.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger, p2.left_bumper, c2.left_bumper, p2.right_bumper, c2.right_bumper);
+            fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
         }
     }
 }
-
-
