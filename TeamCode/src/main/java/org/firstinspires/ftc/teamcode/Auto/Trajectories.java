@@ -13,6 +13,8 @@ public class Trajectories {
     public static TrajectorySequence parkLeft;
     public static TrajectorySequence parkMid;
     public static TrajectorySequence parkRight;
+    public static TrajectorySequence RBadPark;
+    public static TrajectorySequence LBadPark;
     public static Pose2d startPose = new Pose2d(-33, 64, Math.toRadians(270));
 
     public static void generateTrajectories(SampleMecanumDrive drive) {
@@ -52,6 +54,16 @@ public class Trajectories {
 
         parkRight = drive.trajectorySequenceBuilder(backToHighPole.end())
                 .strafeRight(48)
+                .build();
+
+        RBadPark = drive.trajectorySequenceBuilder(startPose)
+                .strafeRight(20)
+                .back(5)
+                .build();
+
+        LBadPark = drive.trajectorySequenceBuilder(startPose)
+                .strafeLeft(20)
+                .back(5)
                 .build();
     }
 }

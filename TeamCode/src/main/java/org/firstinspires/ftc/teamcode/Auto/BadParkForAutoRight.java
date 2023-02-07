@@ -20,8 +20,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "LeftBadPark")
-public class BadParkForAuto extends CommandOpMode {
+@Autonomous(name = "RightBadPark")
+public class BadParkForAutoRight extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
     private DcMotor i;
@@ -129,7 +129,7 @@ public class BadParkForAuto extends CommandOpMode {
 
         //Does 1 + park most of time, needs some tuning though
         schedule(new SequentialCommandGroup(
-                new TrajectorySequenceCommand(drive, Trajectories.LBadPark)
+                new TrajectorySequenceCommand(drive, Trajectories.RBadPark)
         ));
     }
 
