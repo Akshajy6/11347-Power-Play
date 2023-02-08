@@ -116,7 +116,7 @@ public class CommandAuto extends CommandOpMode {
         Trajectories.generateTrajectories(drive); //Loads trajectories from trajectories file
 
         TrajectorySequence park;
-        switch(tagId){
+        switch(tagId) {
             case 0:
                 park = Trajectories.parkLeft;
                 break;

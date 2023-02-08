@@ -157,8 +157,8 @@ public class CommandAutoB extends CommandOpMode {
                                 new FourBarPID(fb, 50),
                                 new FourBarPID(fb, 19)
                         )
-                )//, //This will cause the robot to park
-                //new TrajectorySequenceCommand(drive, park)
+                ),//This will cause the robot to park
+                new TrajectorySequenceCommand(drive, park)
         ));
     }
 

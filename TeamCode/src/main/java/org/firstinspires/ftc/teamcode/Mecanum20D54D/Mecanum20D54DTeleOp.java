@@ -15,16 +15,11 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
     FourBar fb;
 
     //Four bar positions
-//    final double LEFTHIGH = ; //high pole left motor
-//    final double RIGHTHIGH = ; //high pole right motor
-//    final double LEFTMID = ; //medium pole left motor
-//    final double RIGHTMID = ; //medium pole right motor
-//    final double LEFTLOW = ; //low pole left motor
-//    final double RIGHTLOW = ; //low pole right motor
-//    final double LEFTGROUND = ; //ground pole left motor
-//    final double RIGHTGROUND = ; //ground pole right motor
-//    final double LEFTCONE = ; //ground pole left motor
-//    final double RIGHTCONE = ; //ground pole right motor
+    final double HIGH = 650;
+    final double MID = 450;
+    final double LOW = 250;
+    final double CONE = 30;
+
     @Override
     public void runOpMode() throws InterruptedException {
         //Initializing hardware
@@ -50,8 +45,6 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        boolean manual = true;
-
         while (opModeIsActive()) {
             try {
                 p1.copy(c1);
@@ -66,7 +59,27 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
             if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
-            fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+//            fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+//            if (!p2.dpad_down && c2.dpad_down) {
+//                fb.runPID(CONE);
+//            } else if (!p2.dpad_left && c2.dpad_left) {
+//                fb.runPID(LOW);
+//            } else if (!p2.dpad_right && c2.dpad_right) {
+//                fb.runPID(MID);
+//            } else if (!p2.dpad_up && c2.dpad_up) {
+//                fb.runPID(HIGH);
+//            }
+            if (!p1.dpad_down && c1.dpad_down) {
+                fb.runPID(CONE);
+            } else if (!p1.dpad_left && c1.dpad_left) {
+                fb.runPID(LOW);
+            } else if (!p1.dpad_right && c1.dpad_right) {
+                fb.runPID(MID);
+            } else if (!p1.dpad_up && c1.dpad_up) {
+                fb.runPID(HIGH);
+            }
+//            fb.runIntake(c2.left_trigger - c2.right_trigger);
+            fb.runIntake(c1.left_trigger - c1.right_trigger);
         }
     }
 }
