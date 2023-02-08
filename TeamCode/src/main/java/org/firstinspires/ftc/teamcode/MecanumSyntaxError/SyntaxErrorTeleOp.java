@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.FourBar;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -13,7 +12,13 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class SyntaxErrorTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
-    FourBar fb;
+    SyntaxErrorMechanisms mechanisms;
+
+    //Four bar positions
+    final double HIGH = 650;
+    final double MID = 450;
+    final double LOW = 250;
+    final double CONE = 30;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,14 +32,15 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
         DcMotor fr = hardwareMap.dcMotor.get("fr");
         DcMotor bl = hardwareMap.dcMotor.get("bl");
         DcMotor br = hardwareMap.dcMotor.get("br");
-        DcMotor l = hardwareMap.dcMotor.get("l");
-        DcMotor r = hardwareMap.dcMotor.get("r");
-        DcMotor i = hardwareMap.dcMotor.get("i");
+//        DcMotor l = hardwareMap.dcMotor.get("l");
+//        DcMotor r = hardwareMap.dcMotor.get("r");
+//        CRServo il = hardwareMap.crservo.get("il");
+//        CRServo ir = hardwareMap.crservo.get("ir");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-        fb = new FourBar(l, r, i);
+//        mechanisms = new SyntaxErrorMechanisms(l, r);
 
         waitForStart();
 
@@ -49,13 +55,22 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
             } catch (RobotCoreException e) {
                 e.printStackTrace();
             }
-
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
-                gamepad1.rumble(250); //Angle recalibrated, add *1.1 for counter strafing if needed, test first
+            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
+                gamepad1.rumble(250); //Angle recalibrated
             }
-
-            fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+//            mechanisms.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+//
+//
+//            if (!p1.dpad_down && c1.dpad_down) {
+//                mechanisms.runPID(CONE);
+//            } else if (!p1.dpad_left && c1.dpad_left) {
+//                mechanisms.runPID(LOW);
+//            } else if (!p1.dpad_right && c1.dpad_right) {
+//                mechanisms.runPID(MID);
+//            } else if (!p1.dpad_up && c1.dpad_up) {
+//                mechanisms.runPID(HIGH);
+//            }
         }
     }
 }

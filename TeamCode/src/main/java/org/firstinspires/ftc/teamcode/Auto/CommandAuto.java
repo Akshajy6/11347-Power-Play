@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.FourBar;
+import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
 import org.firstinspires.ftc.teamcode.Auto.apriltag.AprilTagDetectionPipeline;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequence;
@@ -66,7 +66,7 @@ public class CommandAuto extends CommandOpMode {
         l = hardwareMap.dcMotor.get("l");
         r = hardwareMap.dcMotor.get("r");
         i = hardwareMap.dcMotor.get("i");
-        FourBar fb = new FourBar(l, r, i);
+        Mechanisms fb = new Mechanisms(l, r, i);
 
         //Even more camera stuff
         while (!isStarted() && !isStopRequested()) {

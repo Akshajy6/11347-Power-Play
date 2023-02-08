@@ -7,14 +7,13 @@ import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.FourBar;
-import org.firstinspires.ftc.teamcode.Outreach.Mecanum.FieldCentricMecanum;
+import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
 
 @TeleOp
 public class FieldCentricTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     FieldCentricMecanum drivetrain;
-    FourBar fb;
+    Mechanisms fb;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,7 +34,7 @@ public class FieldCentricTeleOp extends LinearOpMode {
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new FieldCentricMecanum(fl, fr, bl, br, imu);
-        fb = new FourBar(l, r, i);
+        fb = new Mechanisms(l, r, i);
 
         waitForStart();
 

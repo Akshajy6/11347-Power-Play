@@ -4,13 +4,13 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class FourBar extends SubsystemBase {
+public class Mechanisms extends SubsystemBase {
     final private DcMotor l;
     final private DcMotor r;
     final private DcMotor i;
     PID pid = new PID(0.008, 0, 0);
 
-    public FourBar(DcMotor lm, DcMotor rm, DcMotor im) {
+    public Mechanisms(DcMotor lm, DcMotor rm, DcMotor im) {
         l = lm;
         r = rm;
         i = im;

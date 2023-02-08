@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Mecanum20D54D;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
@@ -12,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class Mecanum20D54DTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
-    FourBar fb;
+    Mechanisms mechanisms;
 
     //Four bar positions
     final double HIGH = 650;
@@ -39,7 +38,7 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-        fb = new FourBar(l, r, i);
+        mechanisms = new Mechanisms(l, r, i);
 
         waitForStart();
 
@@ -70,16 +69,16 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
 //                fb.runPID(HIGH);
 //            }
             if (!p1.dpad_down && c1.dpad_down) {
-                fb.runPID(CONE);
+                mechanisms.runPID(CONE);
             } else if (!p1.dpad_left && c1.dpad_left) {
-                fb.runPID(LOW);
+                mechanisms.runPID(LOW);
             } else if (!p1.dpad_right && c1.dpad_right) {
-                fb.runPID(MID);
+                mechanisms.runPID(MID);
             } else if (!p1.dpad_up && c1.dpad_up) {
-                fb.runPID(HIGH);
+                mechanisms.runPID(HIGH);
             }
 //            fb.runIntake(c2.left_trigger - c2.right_trigger);
-            fb.runIntake(c1.left_trigger - c1.right_trigger);
+            mechanisms.runIntake(c1.left_trigger - c1.right_trigger);
         }
     }
 }

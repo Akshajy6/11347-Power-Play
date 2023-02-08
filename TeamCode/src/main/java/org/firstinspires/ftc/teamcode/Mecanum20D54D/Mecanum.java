@@ -52,6 +52,6 @@ public class Mecanum {
     }
 
     private double curve(double pwr) {
-        return (0.5 * Math.pow(pwr, 3)) + (0.5 * pwr);
+        return pwr; //(0.5 * Math.pow(pwr, 3)) + (0.5 * pwr);
     }
 }
