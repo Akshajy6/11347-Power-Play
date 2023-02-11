@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -29,12 +30,13 @@ public class FieldCentricTeleOp extends LinearOpMode {
         DcMotor br = hardwareMap.dcMotor.get("br");
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
-        DcMotor i = hardwareMap.dcMotor.get("i");
+        CRServo iL = hardwareMap.crservo.get("iL");
+        CRServo iR = hardwareMap.crservo.get("iR");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new FieldCentricMecanum(fl, fr, bl, br, imu);
-        fb = new Mechanisms(l, r, i);
+        fb = new Mechanisms(l, r, iL, iR);
 
         waitForStart();
 

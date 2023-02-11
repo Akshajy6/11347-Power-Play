@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -33,12 +34,13 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
         DcMotor br = hardwareMap.dcMotor.get("br");
         DcMotor l = hardwareMap.dcMotor.get("l");
         DcMotor r = hardwareMap.dcMotor.get("r");
-        DcMotor i = hardwareMap.dcMotor.get("i");
+        CRServo iL = hardwareMap.crservo.get("il");
+        CRServo iR = hardwareMap.crservo.get("ir");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-        mechanisms = new Mechanisms(l, r, i);
+        mechanisms = new Mechanisms(l, r, iL, iR);
 
         waitForStart();
 
@@ -58,7 +60,7 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
             if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
-//            fb.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+            mechanisms.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
 //            if (!p2.dpad_down && c2.dpad_down) {
 //                fb.runPID(CONE);
 //            } else if (!p2.dpad_left && c2.dpad_left) {
@@ -78,7 +80,7 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
                 mechanisms.runPID(HIGH);
             }
 //            fb.runIntake(c2.left_trigger - c2.right_trigger);
-            mechanisms.runIntake(c1.left_trigger - c1.right_trigger);
+//            mechanisms.runIntake(c1.left_trigger - c1.right_trigger);
         }
     }
 }

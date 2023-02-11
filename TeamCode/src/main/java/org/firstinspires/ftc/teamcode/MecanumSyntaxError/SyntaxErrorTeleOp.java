@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
+import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class SyntaxErrorTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
-    SyntaxErrorMechanisms mechanisms;
+    Mechanisms mechanisms;
 
     //Four bar positions
     final double HIGH = 650;
@@ -32,15 +35,15 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
         DcMotor fr = hardwareMap.dcMotor.get("fr");
         DcMotor bl = hardwareMap.dcMotor.get("bl");
         DcMotor br = hardwareMap.dcMotor.get("br");
-//        DcMotor l = hardwareMap.dcMotor.get("l");
-//        DcMotor r = hardwareMap.dcMotor.get("r");
-//        CRServo il = hardwareMap.crservo.get("il");
-//        CRServo ir = hardwareMap.crservo.get("ir");
+        DcMotor l = hardwareMap.dcMotor.get("l");
+        DcMotor r = hardwareMap.dcMotor.get("r");
+        CRServo iL = hardwareMap.crservo.get("il");
+        CRServo iR = hardwareMap.crservo.get("ir");
 
         BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
-//        mechanisms = new SyntaxErrorMechanisms(l, r);
+        mechanisms = new Mechanisms(l, r, iL, iR);
 
         waitForStart();
 
@@ -56,21 +59,41 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
                 e.printStackTrace();
             }
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
+            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
-//            mechanisms.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
-//
-//
-//            if (!p1.dpad_down && c1.dpad_down) {
-//                mechanisms.runPID(CONE);
-//            } else if (!p1.dpad_left && c1.dpad_left) {
-//                mechanisms.runPID(LOW);
-//            } else if (!p1.dpad_right && c1.dpad_right) {
-//                mechanisms.runPID(MID);
-//            } else if (!p1.dpad_up && c1.dpad_up) {
-//                mechanisms.runPID(HIGH);
+            mechanisms.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
+//            if (!p2.dpad_down && c2.dpad_down) {
+//                fb.runPID(CONE);
+//            } else if (!p2.dpad_left && c2.dpad_left) {
+//                fb.runPID(LOW);
+//            } else if (!p2.dpad_right && c2.dpad_right) {
+//                fb.runPID(MID);
+//            } else if (!p2.dpad_up && c2.dpad_up) {
+//                fb.runPID(HIGH);
 //            }
+            if (!p1.dpad_down && c1.dpad_down)
+            {
+                mechanisms.runPID(CONE);
+            }
+
+            else if (!p1.dpad_left && c1.dpad_left)
+            {
+                mechanisms.runPID(LOW);
+            }
+
+            else if (!p1.dpad_right && c1.dpad_right)
+            {
+                mechanisms.runPID(MID);
+            }
+
+            else if (!p1.dpad_up && c1.dpad_up)
+            {
+                mechanisms.runPID(HIGH);
+            }
+
+//            fb.runIntake(c2.left_trigger - c2.right_trigger);
+//            mechanisms.runIntake(c1.left_trigger - c1.right_trigger);
         }
     }
 }

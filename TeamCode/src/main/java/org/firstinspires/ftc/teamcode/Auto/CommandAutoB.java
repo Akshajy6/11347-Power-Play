@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -24,7 +25,8 @@ import java.util.ArrayList;
 public class CommandAutoB extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
-    private DcMotor i;
+    private CRServo iL;
+    private CRServo iR;
     SampleMecanumDrive drive;
 
     //Camera stuff, dw about it
@@ -67,8 +69,9 @@ public class CommandAutoB extends CommandOpMode {
         drive = new SampleMecanumDrive(hardwareMap);
         l = hardwareMap.dcMotor.get("l");
         r = hardwareMap.dcMotor.get("r");
-        i = hardwareMap.dcMotor.get("i");
-        Mechanisms fb = new Mechanisms(l, r, i);
+        iL = hardwareMap.crservo.get("iL");
+        iR = hardwareMap.crservo.get("iR");
+        Mechanisms fb = new Mechanisms(l, r, iL, iR);
 
         //Even more camera stuff
         while (!isStarted() && !isStopRequested()) {
