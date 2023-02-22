@@ -46,17 +46,20 @@ public class CommandTeleOp extends CommandOpMode {
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
         mechanisms = new SyntaxErrorMechanisms(l, r, il, ir);
 
+        schedule(new BulkCacheCommand(hardwareMap));
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new FourBarPID(mechanisms, HIGH));
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new FourBarPID(mechanisms, MID));
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new FourBarPID(mechanisms, LOW));
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new FourBarPID(mechanisms, CONE));
+        Boolean pressed = driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER);
+
+        telemetry.addLine("Initialization Done");
+        telemetry.update();
+
         while (opModeIsActive()) {
-            if (drivetrain.drive(-driver.getLeftY(), -driver.getLeftX() * 1.1, -driver.getRightX(), driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER))) {
+            if (drivetrain.drive(-driver.getLeftY(), -driver.getLeftX() * 1.1, -driver.getRightX(), pressed)) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
-            Button up = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
-            up.whenPressed(new InstantCommand(() -> {
-                telemetry.addLine("DPAD UP HAS BEEN PRESSED");
-                telemetry.update();
-            }));
-            Button down = new GamepadButton(driver, GamepadKeys.Button.DPAD_DOWN);
-            down.whenPressed(new FourBarPID(mechanisms, CONE));
         }
     }
 }
