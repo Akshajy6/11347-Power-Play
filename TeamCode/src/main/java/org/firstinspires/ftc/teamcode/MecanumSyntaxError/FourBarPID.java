@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 

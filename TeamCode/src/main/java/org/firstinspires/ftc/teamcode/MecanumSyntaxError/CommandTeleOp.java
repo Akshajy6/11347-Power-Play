@@ -1,35 +1,36 @@
 package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
 
-import static com.arcrobotics.ftclib.gamepad.GamepadKeys.Button.DPAD_UP;
-
-import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.PerpetualCommand;
+import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.button.Button;
+import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
 
 @TeleOp
-public class SyntaxErrorTeleOp extends LinearOpMode {
+public class CommandTeleOp extends CommandOpMode {
 
     //Initializing drivetrain and four bar
     SyntaxErrorMechanisms mechanisms;
     Mecanum drivetrain;
 
-    @Override
-    public void runOpMode() throws InterruptedException {
+    //Four bar positions
+    final double HIGH = 500;
+    final double MID = 450;
+    final double LOW = 250;
+    final double CONE = 30;
 
+    @Override
+    public void initialize() {
         //Initializing hardware
-        Gamepad p1 = new Gamepad();
-        Gamepad c1 = new Gamepad();
+        GamepadEx driver = new GamepadEx(gamepad1);
+        GamepadEx mechanism = new GamepadEx(gamepad2);
 
         DcMotor fl = hardwareMap.dcMotor.get("fl");
         DcMotor fr = hardwareMap.dcMotor.get("fr");
@@ -45,29 +46,17 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
         mechanisms = new SyntaxErrorMechanisms(l, r, il, ir);
 
-        Boolean pressed = false;
-
-        waitForStart();
-
-        if (isStopRequested()) return;
-
         while (opModeIsActive()) {
-            try {
-                p1.copy(c1);
-                c1.copy(gamepad1);
-            } catch (RobotCoreException e) {
-                e.printStackTrace();
-            }
-
-            if (!p1.right_bumper && c1.right_bumper) {
-                pressed = true;
-            }
-
-            //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, pressed)) {
+            if (drivetrain.drive(-driver.getLeftY(), -driver.getLeftX() * 1.1, -driver.getRightX(), driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER))) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
-            mechanisms.runManual(-gamepad2.right_stick_y, gamepad2.left_trigger - gamepad2.right_trigger);
+            Button up = new GamepadButton(driver, GamepadKeys.Button.DPAD_UP);
+            up.whenPressed(new InstantCommand(() -> {
+                telemetry.addLine("DPAD UP HAS BEEN PRESSED");
+                telemetry.update();
+            }));
+            Button down = new GamepadButton(driver, GamepadKeys.Button.DPAD_DOWN);
+            down.whenPressed(new FourBarPID(mechanisms, CONE));
         }
     }
 }

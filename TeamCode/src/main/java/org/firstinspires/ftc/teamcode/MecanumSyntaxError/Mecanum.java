@@ -12,7 +12,7 @@ public class Mecanum {
     private BNO055IMU imu;
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
-    public Mecanum(DcMotor m1, DcMotor m2, DcMotor m3, DcMotor m4, BNO055IMU imu1) {
+    public Mecanum (DcMotor m1, DcMotor m2, DcMotor m3, DcMotor m4, BNO055IMU imu1) {
         fl = m1;
         fr = m2;
         bl = m3;
@@ -24,12 +24,12 @@ public class Mecanum {
         imu.initialize(parameters);
     }
 
-    public boolean drive(double y, double x, double rx, boolean p, boolean c) {
+    public boolean drive(double y, double x, double rx, boolean pressed) {
         double angle = -imu.getAngularOrientation().firstAngle;
         boolean calibrated = false;
 
         //Recalibrate imu angle
-        if (!p && c) {
+        if (pressed) {
             imu.initialize(parameters);
             calibrated = true;
         }

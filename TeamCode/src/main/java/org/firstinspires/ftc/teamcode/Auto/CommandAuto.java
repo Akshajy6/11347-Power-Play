@@ -44,6 +44,9 @@ public class CommandAuto extends CommandOpMode {
 
     int tagId = 0;
 
+    double HIGH = 500;
+    double CONE = 0;
+
     @Override
     public void initialize() {
         //More camera stuff
@@ -133,17 +136,18 @@ public class CommandAuto extends CommandOpMode {
 
         //Does 1 + park most of time, needs some tuning though
         schedule(new SequentialCommandGroup (
-                new ParallelCommandGroup(
-                        new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
-                        new SequentialCommandGroup(
-                                new WaitCommand(3000),
-                                new FourBarPID(fb, 650),
-                                new WaitCommand(3450),
-                                new InstantCommand(() -> fb.runIntake(-1)),
-                                new WaitCommand(500),
-                                new InstantCommand(() -> fb.runIntake(0))
-                        )
-                ),
+//                new ParallelCommandGroup(
+//                        new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
+//                        new SequentialCommandGroup(
+//                                new WaitCommand(3000),
+//                                new FourBarPID(fb, 650),
+//                                new WaitCommand(3450),
+//                                new InstantCommand(() -> fb.runIntake(-1)),
+//                                new WaitCommand(500),
+//                                new InstantCommand(() -> fb.runIntake(0))
+//                        )
+//                ),
+                new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
                 new TrajectorySequenceCommand(drive, park)
         ));
     }

@@ -42,6 +42,8 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
         drivetrain = new Mecanum(fl, fr, bl, br, imu);
         mechanisms = new Mechanisms(l, r, iL, iR);
 
+        Boolean pressed = false;
+
         waitForStart();
 
         if (isStopRequested()) return;
@@ -56,8 +58,12 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
                 e.printStackTrace();
             }
 
+            if (!p1.right_bumper && c1.right_bumper) {
+                pressed = true;
+            }
+
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, p1.right_bumper, c1.right_bumper)) {
+            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, pressed)) {
                 gamepad1.rumble(250); //Angle recalibrated
             }
             mechanisms.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);

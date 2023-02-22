@@ -24,12 +24,12 @@ public class Mecanum {
         imu.initialize(parameters);
     }
 
-    public boolean drive(double y, double x, double rx, boolean p, boolean c) {
+    public boolean drive(double y, double x, double rx, boolean pressed) {
         double angle = -imu.getAngularOrientation().firstAngle;
         boolean calibrated = false;
 
         //Recalibrate imu angle
-        if (!p && c) {
+        if (pressed) {
             imu.initialize(parameters);
             calibrated = true;
         }
