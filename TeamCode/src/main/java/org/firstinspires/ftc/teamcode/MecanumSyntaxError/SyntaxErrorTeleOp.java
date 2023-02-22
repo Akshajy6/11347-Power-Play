@@ -16,7 +16,7 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
     Mecanum drivetrain;
 
     //Four bar positions
-    final double HIGH = 650;
+    final double HIGH = 500;
     final double MID = 450;
     final double LOW = 250;
     final double CONE = 30;
@@ -61,23 +61,12 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
                 gamepad1.rumble(250); //Angle recalibrated
             }
             mechanisms.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
-//            fb.runIntake(c2.left_trigger - c2.right_trigger);
-//            mechanisms.runIntake(c1.left_trigger - c1.right_trigger);
-            if (!p2.dpad_down && c2.dpad_down) {
-                while (Math.abs(mechanisms.getPosition() - CONE) < 1) {
-                    mechanisms.runPID(CONE);
-                }
-            } else if (!p2.dpad_left && c2.dpad_left) {
-                while (Math.abs(mechanisms.getPosition() - LOW) < 1) {
-                    mechanisms.runPID(LOW);
-                }
-            } else if (!p2.dpad_right && c2.dpad_right) {
-                while (Math.abs(mechanisms.getPosition() - MID) < 1) {
-                    mechanisms.runPID(MID);
-                }
-            } else if (!p2.dpad_up && c2.dpad_up) {
-                while (mechanisms.getPosition() < 100) {
-                    mechanisms.runPID(100);
+            telemetry.addLine("POS: " + mechanisms.getPosition());
+            telemetry.update();
+
+            if (!p2.dpad_up && c2.dpad_up) {
+                while (mechanisms.getPosition() < HIGH) {
+                    mechanisms.runPID(HIGH);
                 }
             }
         }

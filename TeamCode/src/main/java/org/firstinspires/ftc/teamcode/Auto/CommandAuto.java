@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
 import org.firstinspires.ftc.teamcode.Auto.apriltag.AprilTagDetectionPipeline;
+import org.firstinspires.ftc.teamcode.MecanumSyntaxError.SyntaxErrorMechanisms;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequence;
 import org.openftc.apriltag.AprilTagDetection;
@@ -67,9 +68,9 @@ public class CommandAuto extends CommandOpMode {
         drive = new SampleMecanumDrive(hardwareMap);
         l = hardwareMap.dcMotor.get("l");
         r = hardwareMap.dcMotor.get("r");
-        iL = hardwareMap.crservo.get("iL");
-        iR = hardwareMap.crservo.get("iR");
-        Mechanisms fb = new Mechanisms(l, r, iL, iR);
+        iL = hardwareMap.crservo.get("il");
+        iR = hardwareMap.crservo.get("ir");
+        SyntaxErrorMechanisms fb = new SyntaxErrorMechanisms(l, r, iL, iR);
 
         //Even more camera stuff
         while (!isStarted() && !isStopRequested()) {
@@ -131,7 +132,7 @@ public class CommandAuto extends CommandOpMode {
         }
 
         //Does 1 + park most of time, needs some tuning though
-        schedule(new SequentialCommandGroup(
+        schedule(new SequentialCommandGroup (
                 new ParallelCommandGroup(
                         new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
                         new SequentialCommandGroup(

@@ -23,10 +23,10 @@ public class Trajectories {
         //Change trajectories only if needed
         toHighPole = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(8)
-                .forward(78)
-                .back(6.5)
-                .strafeLeft(20.4)
-                .back(6)
+                .forward(106)
+                .back(10)
+                .strafeLeft(36)
+                .back(10)
                 .build();
 
         toConeStack = drive.trajectorySequenceBuilder(toHighPole.end())

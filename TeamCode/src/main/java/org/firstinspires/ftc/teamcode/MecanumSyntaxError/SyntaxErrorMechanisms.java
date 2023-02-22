@@ -19,10 +19,18 @@ public class SyntaxErrorMechanisms {
         r = rm;
         il = ils;
         ir = ilr;
+        l.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        r.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        l.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        r.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     public void runManual(double dr4bp, double ip) {
-        l.setPower(-dr4bp - 0.11);
-        r.setPower(dr4bp + 0.11);
+        l.setPower(-dr4bp * 0.75 - 0.11);
+        r.setPower(dr4bp * 0.75 + 0.11);
+        il.setPower(ip);
+        ir.setPower(ip);
+    }
+    public void runIntake(double ip) {
         il.setPower(ip);
         ir.setPower(ip);
     }
