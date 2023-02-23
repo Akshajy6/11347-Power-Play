@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.button.Button;
-import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -11,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.Auto.BulkCacheCommand;
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
 
 @TeleOp
@@ -47,10 +45,19 @@ public class CommandTeleOp extends CommandOpMode {
         mechanisms = new SyntaxErrorMechanisms(l, r, il, ir);
 
         schedule(new BulkCacheCommand(hardwareMap));
-        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new FourBarPID(mechanisms, HIGH));
-        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new FourBarPID(mechanisms, MID));
-        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new FourBarPID(mechanisms, LOW));
-        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new FourBarPID(mechanisms, CONE));
+
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(new FourBarPID(mechanisms, HIGH));
+
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(new FourBarPID(mechanisms, MID));
+
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(new FourBarPID(mechanisms, LOW));
+
+        mechanism.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(new FourBarPID(mechanisms, CONE));
+
         Boolean pressed = driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER);
 
         telemetry.addLine("Initialization Done");

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+package org.firstinspires.ftc.teamcode.Auto;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.qualcomm.hardware.lynx.LynxModule;
