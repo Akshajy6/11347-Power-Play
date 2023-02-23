@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
 import org.firstinspires.ftc.teamcode.MecanumSyntaxError.SyntaxErrorMechanisms;
 
-//Fourbar PID made by Ryan, its better
 public class FourBarPID extends CommandBase {
 
     private SyntaxErrorMechanisms mechanisms;
@@ -26,7 +25,7 @@ public class FourBarPID extends CommandBase {
     }
     @Override
     public boolean isFinished(){
-        return Math.abs(mechanisms.getPosition() - target) < 20;
+        return Math.abs(mechanisms.getPosition() - target) < 25;
     }
     @Override
     public void end(boolean interrupted){

@@ -20,9 +20,10 @@ public class CommandTeleOp extends CommandOpMode {
     Mecanum drivetrain;
 
     //Four bar positions
-    final int HIGH = 500;
-    final int MID = 450;
-    final int LOW = 250;
+    final int HIGH = 729;
+    final int MID = 519;
+    final int LOW = 298;
+    final int BARRIER = 180;
     final int CONE = 30;
 
     private boolean pidActive = false;
@@ -51,24 +52,29 @@ public class CommandTeleOp extends CommandOpMode {
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new InstantCommand(() -> {pidActive = true;}))
-                .whenPressed(new FourBarPID(mechanisms, HIGH).withTimeout(2000))
+                .whenPressed(new FourBarPID(mechanisms, HIGH).withTimeout(1500))
                 .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(new InstantCommand(() -> {pidActive = true;}))
-                .whenPressed(new FourBarPID(mechanisms, MID).withTimeout(2000))
+                .whenPressed(new FourBarPID(mechanisms, MID).withTimeout(1500))
                 .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                 .whenPressed(new InstantCommand(() -> {pidActive = true;}))
-                .whenPressed(new FourBarPID(mechanisms, LOW).withTimeout(2000))
+                .whenPressed(new FourBarPID(mechanisms, LOW).withTimeout(1500))
                 .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new InstantCommand(() -> {pidActive = true;}))
-                .whenPressed(new FourBarPID(mechanisms, CONE).withTimeout(2000))
+                .whenPressed(new FourBarPID(mechanisms, BARRIER).withTimeout(1500))
                 .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
+        mechanism.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new InstantCommand(() -> {pidActive = true;}))
+                .whenPressed(new FourBarPID(mechanisms, CONE).withTimeout(1500))
+                .whenReleased(new InstantCommand(() -> {pidActive = false;}));
+        
         telemetry.addLine("Initialization Done");
         telemetry.update();
     }
