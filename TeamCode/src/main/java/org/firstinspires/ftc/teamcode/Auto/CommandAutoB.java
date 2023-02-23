@@ -22,12 +22,12 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "1 + 2 + park NOT WORKING")
+@Autonomous(name = "Alex's Funny Auto")
 public class CommandAutoB extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
-    private CRServo iL;
-    private CRServo iR;
+    private CRServo il;
+    private CRServo ir;
     SampleMecanumDrive drive;
 
     //Camera stuff, dw about it
@@ -70,9 +70,9 @@ public class CommandAutoB extends CommandOpMode {
         drive = new SampleMecanumDrive(hardwareMap);
         l = hardwareMap.dcMotor.get("l");
         r = hardwareMap.dcMotor.get("r");
-        iL = hardwareMap.crservo.get("iL");
-        iR = hardwareMap.crservo.get("iR");
-        Mechanisms fb = new Mechanisms(l, r, iL, iR);
+        il = hardwareMap.crservo.get("il");
+        ir = hardwareMap.crservo.get("ir");
+        Mechanisms fb = new Mechanisms(l, r, il, ir);
 
         //Even more camera stuff
         while (!isStarted() && !isStopRequested()) {
@@ -138,31 +138,31 @@ public class CommandAutoB extends CommandOpMode {
         //Takes a long time to run so making faster later on is needed
         schedule(new SequentialCommandGroup(
                 new ParallelCommandGroup(
-                        new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
-                        new SequentialCommandGroup(
-                                new WaitCommand(2000),
-                                new FourBarPID(fb, 665),
-                                new WaitCommand(3550),
-                                new InstantCommand(() -> fb.runIntake(-1)),
-                                new WaitCommand(750),
-                                new InstantCommand(() -> fb.runIntake(0)),
-                                new TrajectorySequenceCommand(drive, Trajectories.toConeStack),
-                                new WaitCommand(1500),
-                                new FourBarPID(fb, 222),
-                                new InstantCommand(() -> fb.runIntake(1)),
-                                new WaitCommand(500),
-                                new InstantCommand(() -> fb.runIntake(0)),
-                                new FourBarPID(fb, 650),
-                                new TrajectorySequenceCommand(drive, Trajectories.backToHighPole),
-                                new WaitCommand(1000),
-                                new InstantCommand(() -> fb.runIntake(-1)),
-                                new WaitCommand(1000),
-                                new InstantCommand(() -> fb.runIntake(0)),
-                                new FourBarPID(fb, 50),
-                                new FourBarPID(fb, 19)
-                        )
-                ),//This will cause the robot to park
-                new TrajectorySequenceCommand(drive, park)
+                        new TrajectorySequenceCommand(drive, Trajectories.toHighPole)
+//                        new SequentialCommandGroup(
+//                                new WaitCommand(2000),
+//                                new FourBarPID(fb, 665)
+////                                new WaitCommand(3550),
+//                                new InstantCommand(() -> fb.runIntake(-1)),
+//                                new WaitCommand(750),
+//                                new InstantCommand(() -> fb.runIntake(0)),
+//                                new TrajectorySequenceCommand(drive, Trajectories.toConeStack),
+//                                new WaitCommand(1500),
+//                                new FourBarPID(fb, 222),
+//                                new InstantCommand(() -> fb.runIntake(1)),
+//                                new WaitCommand(500),
+//                                new InstantCommand(() -> fb.runIntake(0)),
+//                                new FourBarPID(fb, 650),
+//                                new TrajectorySequenceCommand(drive, Trajectories.backToHighPole),
+//                                new WaitCommand(1000),
+//                                new InstantCommand(() -> fb.runIntake(-1)),
+//                                new WaitCommand(1000),
+//                                new InstantCommand(() -> fb.runIntake(0)),
+//                                new FourBarPID(fb, 50),
+//                                new FourBarPID(fb, 19)
+//                        )
+                )//This will cause the robot to park
+                //new TrajectorySequenceCommand(drive, park)
         ));
     }
 

@@ -8,15 +8,15 @@ import com.qualcomm.robotcore.hardware.CRServo;
 public class Mechanisms extends SubsystemBase {
     final private DcMotor l;
     final private DcMotor r;
-    final private CRServo iL;
-    final private CRServo iR;
+    final private CRServo il;
+    final private CRServo ir;
     PID pid = new PID(0.008, 0, 0);
 
     public Mechanisms(DcMotor lm, DcMotor rm, CRServo iLm, CRServo iRm) {
         l = lm;
         r = rm;
-        iL = iLm;
-        iR = iRm;
+        il = iLm;
+        ir = iRm;
         l.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -25,8 +25,8 @@ public class Mechanisms extends SubsystemBase {
     }
 
     public void runIntake(double power) {
-        iL.setPower(power);
-        iR.setPower(-power);
+        il.setPower(power);
+        ir.setPower(-power);
     }
 
     public void runManual(double fbp) {
@@ -36,8 +36,8 @@ public class Mechanisms extends SubsystemBase {
     public void runManual(double fbp, double rp) {
         l.setPower(-fbp);
         r.setPower(fbp);
-        iL.setPower(rp);
-        iR.setPower(rp);
+        il.setPower(rp);
+        ir.setPower(rp);
     }
     public void runPID(double target) {
         double command = pid.update(l.getCurrentPosition(), target) + 0.11;
