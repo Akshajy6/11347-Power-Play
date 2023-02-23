@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
 import org.firstinspires.ftc.teamcode.Auto.apriltag.AprilTagDetectionPipeline;
+import org.firstinspires.ftc.teamcode.MecanumSyntaxError.FourBarPID;
 import org.firstinspires.ftc.teamcode.MecanumSyntaxError.SyntaxErrorMechanisms;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequence;
@@ -22,12 +23,12 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "1 + park")
+@Autonomous(name="Alex's funny auto")
 public class CommandAuto extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
-    private CRServo iL;
-    private CRServo iR;
+    private CRServo il;
+    private CRServo ir;
     SampleMecanumDrive drive;
 
     //Camera stuff, dw about it
@@ -44,8 +45,10 @@ public class CommandAuto extends CommandOpMode {
 
     int tagId = 0;
 
-    double HIGH = 500;
-    double CONE = 0;
+    final double HIGH = 729;
+    final double MID = 519;
+    final double LOW = 298;
+    final double CONE = 30;
 
     @Override
     public void initialize() {
@@ -71,9 +74,9 @@ public class CommandAuto extends CommandOpMode {
         drive = new SampleMecanumDrive(hardwareMap);
         l = hardwareMap.dcMotor.get("l");
         r = hardwareMap.dcMotor.get("r");
-        iL = hardwareMap.crservo.get("il");
-        iR = hardwareMap.crservo.get("ir");
-        SyntaxErrorMechanisms fb = new SyntaxErrorMechanisms(l, r, iL, iR);
+        il = hardwareMap.crservo.get("il");
+        ir = hardwareMap.crservo.get("ir");
+        SyntaxErrorMechanisms fb = new SyntaxErrorMechanisms(l, r, il, ir);
 
         //Even more camera stuff
         while (!isStarted() && !isStopRequested()) {
@@ -123,32 +126,37 @@ public class CommandAuto extends CommandOpMode {
         Trajectories.generateTrajectories(drive); //Loads trajectories from trajectories file
 
         TrajectorySequence park;
-        switch(tagId) {
+        switch(tagId){
             case 0:
                 park = Trajectories.parkLeft;
                 break;
-            case 1:
+            case  1:
                 park = Trajectories.parkMid;
                 break;
             default:
                 park = Trajectories.parkRight;
         }
-
-        //Does 1 + park most of time, needs some tuning though
-        schedule(new SequentialCommandGroup (
-//                new ParallelCommandGroup(
-//                        new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
-//                        new SequentialCommandGroup(
-//                                new WaitCommand(3000),
-//                                new FourBarPID(fb, 650),
-//                                new WaitCommand(3450),
-//                                new InstantCommand(() -> fb.runIntake(-1)),
-//                                new WaitCommand(500),
-//                                new InstantCommand(() -> fb.runIntake(0))
-//                        )
-//                ),
-                new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
-                new TrajectorySequenceCommand(drive, park)
+        schedule(new SequentialCommandGroup(
+                new ParallelCommandGroup(
+                        new TrajectorySequenceCommand(drive, Trajectories.toHighPole),
+                        new SequentialCommandGroup(
+                                new WaitCommand(3000),
+                                new FourBarPID(fb, LOW),
+                                new WaitCommand(4000),
+                                new FourBarPID(fb, HIGH).withTimeout(1000),
+                                new WaitCommand(500),
+                                new FourBarPID(fb, HIGH - 50).withTimeout(1000),
+                                new WaitCommand(500),
+                                new InstantCommand(() -> {
+                                    fb.runIntake(1);
+                                }),
+                                new WaitCommand(1000),
+                                new InstantCommand(() -> {
+                                    fb.runIntake(0);
+                                })
+                        )
+                )//,//This will cause the robot to park
+//                new TrajectorySequenceCommand(drive, park)
         ));
     }
 

@@ -23,7 +23,6 @@ public class CommandTeleOp extends CommandOpMode {
     final int HIGH = 729;
     final int MID = 519;
     final int LOW = 298;
-    final int BARRIER = 180;
     final int CONE = 30;
 
     private boolean pidActive = false;
@@ -67,14 +66,12 @@ public class CommandTeleOp extends CommandOpMode {
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new InstantCommand(() -> {pidActive = true;}))
-                .whenPressed(new FourBarPID(mechanisms, BARRIER).withTimeout(1500))
-                .whenReleased(new InstantCommand(() -> {pidActive = false;}));
-
-        mechanism.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(new InstantCommand(() -> {pidActive = true;}))
                 .whenPressed(new FourBarPID(mechanisms, CONE).withTimeout(1500))
                 .whenReleased(new InstantCommand(() -> {pidActive = false;}));
-        
+
+        mechanism.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(new InstantCommand(() -> {mechanisms.reset();}));
+
         telemetry.addLine("Initialization Done");
         telemetry.update();
     }

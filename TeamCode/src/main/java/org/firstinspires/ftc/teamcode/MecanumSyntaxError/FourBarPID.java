@@ -17,8 +17,9 @@ public class FourBarPID extends CommandBase {
         this.mechanisms = fb;
         this.target = target;
     }
+
     @Override
-    public void initialize(){}
+    public void initialize() {}
     @Override
     public void execute(){
         mechanisms.runPID(target);

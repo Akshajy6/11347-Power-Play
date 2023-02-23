@@ -22,10 +22,9 @@ public class Trajectories {
         toHighPole = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(12)
                 .turn(Math.toRadians(-8))
-                .forward(48)
-                //.strafeLeft(18)
-                .turn(Math.toRadians(42))
-                .forward(20)
+                .forward(52)
+                .turn(Math.toRadians(57))
+                .forward(11.5)
                 .build();
 
         toConeStack = drive.trajectorySequenceBuilder(toHighPole.end())
@@ -43,16 +42,15 @@ public class Trajectories {
                 .build();
 
         parkLeft = drive.trajectorySequenceBuilder(backToHighPole.end())
-                .back(1)
-                .strafeLeft(24)
+                .strafeLeft(16)
                 .build();
 
         parkMid = drive.trajectorySequenceBuilder(backToHighPole.end())
-                .strafeRight(12)
+                .strafeRight(8)
                 .build();
 
         parkRight = drive.trajectorySequenceBuilder(backToHighPole.end())
-                .strafeRight(48)
+                .strafeRight(36)
                 .build();
     }
 }

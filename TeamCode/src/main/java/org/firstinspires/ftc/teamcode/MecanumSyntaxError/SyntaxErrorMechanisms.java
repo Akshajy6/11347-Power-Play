@@ -39,6 +39,12 @@ public class SyntaxErrorMechanisms {
         l.setPower(-command);
         r.setPower(command);
     }
+    public void reset() {
+        l.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        r.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        l.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        r.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
     public double getPosition() {
         return r.getCurrentPosition();
     }
