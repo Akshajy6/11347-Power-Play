@@ -51,6 +51,7 @@ public class mechanismPID extends SubsystemBase {
 
     public void setFourbarPower(double power)
     {
-        leftm.setPower(power)
+        leftm.setPower(power);
+        rightm.setPower(-power);
     }
 }
