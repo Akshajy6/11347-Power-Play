@@ -52,22 +52,11 @@ public class SyntaxErrorTeleOp extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            try {
-                p1.copy(c1);
-                c1.copy(gamepad1);
-            } catch (RobotCoreException e) {
-                e.printStackTrace();
-            }
-
-            if (!p1.right_bumper && c1.right_bumper) {
-                pressed = true;
-            }
-
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, pressed)) {
-                gamepad1.rumble(250); //Angle recalibrated
-            }
+            drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x);
             mechanisms.runManual(-gamepad2.right_stick_y, gamepad2.left_trigger - gamepad2.right_trigger);
+            telemetry.addLine("POS: " + mechanisms.getPosition());
+            telemetry.update();
         }
     }
 }

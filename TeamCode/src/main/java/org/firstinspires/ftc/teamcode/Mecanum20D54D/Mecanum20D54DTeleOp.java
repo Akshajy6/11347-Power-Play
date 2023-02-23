@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Mecanum20D54D;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.exception.RobotCoreException;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp
+@Disabled
 public class Mecanum20D54DTeleOp extends LinearOpMode {
     //Initializing drivetrain and four bar
     Mecanum drivetrain;
@@ -58,14 +60,9 @@ public class Mecanum20D54DTeleOp extends LinearOpMode {
                 e.printStackTrace();
             }
 
-            if (!p1.right_bumper && c1.right_bumper) {
-                pressed = true;
-            }
-
             //Mecanum drivetrain code
-            if (drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x, pressed)) {
-                gamepad1.rumble(250); //Angle recalibrated
-            }
+            drivetrain.drive(c1.left_stick_y, -c1.left_stick_x * 1.1, -c1.right_stick_x);
+
             mechanisms.runManual(-c2.right_stick_y, c2.left_trigger - c2.right_trigger);
 //            if (!p2.dpad_down && c2.dpad_down) {
 //                fb.runPID(CONE);

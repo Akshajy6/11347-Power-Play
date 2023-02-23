@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -19,10 +20,12 @@ public class CommandTeleOp extends CommandOpMode {
     Mecanum drivetrain;
 
     //Four bar positions
-    final double HIGH = 500;
-    final double MID = 450;
-    final double LOW = 250;
-    final double CONE = 30;
+    final int HIGH = 500;
+    final int MID = 450;
+    final int LOW = 250;
+    final int CONE = 30;
+
+    private boolean pidActive = false;
 
     @Override
     public void initialize() {
@@ -47,26 +50,43 @@ public class CommandTeleOp extends CommandOpMode {
         schedule(new BulkCacheCommand(hardwareMap));
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(new FourBarPID(mechanisms, HIGH));
+                .whenPressed(new InstantCommand(() -> {pidActive = true;}))
+                .whenPressed(new FourBarPID(mechanisms, HIGH).withTimeout(2000))
+                .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(new FourBarPID(mechanisms, MID));
+                .whenPressed(new InstantCommand(() -> {pidActive = true;}))
+                .whenPressed(new FourBarPID(mechanisms, MID).withTimeout(2000))
+                .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(new FourBarPID(mechanisms, LOW));
+                .whenPressed(new InstantCommand(() -> {pidActive = true;}))
+                .whenPressed(new FourBarPID(mechanisms, LOW).withTimeout(2000))
+                .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
         mechanism.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(new FourBarPID(mechanisms, CONE));
-
-        Boolean pressed = driver.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER);
+                .whenPressed(new InstantCommand(() -> {pidActive = true;}))
+                .whenPressed(new FourBarPID(mechanisms, CONE).withTimeout(2000))
+                .whenReleased(new InstantCommand(() -> {pidActive = false;}));
 
         telemetry.addLine("Initialization Done");
         telemetry.update();
+    }
 
-        while (opModeIsActive()) {
-            if (drivetrain.drive(-driver.getLeftY(), -driver.getLeftX() * 1.1, -driver.getRightX(), pressed)) {
-                gamepad1.rumble(250); //Angle recalibrated
-            }
+    @Override
+    public void run(){
+       super.run();
+        drivetrain.drive(gamepad1.left_stick_y, -gamepad1.left_stick_x * 1.1, -gamepad1.right_stick_x);
+
+        if (gamepad1.left_bumper || gamepad1.right_bumper) {
+            drivetrain.reset();
+            gamepad1.rumble(250); //Angle recalibrated
+        }
+        if (!pidActive)
+        {
+            mechanisms.runManual(-gamepad2.right_stick_y, gamepad2.left_trigger - gamepad2.right_trigger);
+            telemetry.addLine("Lift Position: " + mechanisms.getPosition());
+            telemetry.update();
         }
     }
 }

@@ -4,6 +4,8 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+
 public class Mecanum {
     private DcMotor fl;
     private DcMotor fr;
@@ -11,6 +13,10 @@ public class Mecanum {
     private DcMotor br;
     private BNO055IMU imu;
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+
+
+    private double offset = 0;
+    private double currentAngle = 0;
 
     public Mecanum(DcMotor m1, DcMotor m2, DcMotor m3, DcMotor m4, BNO055IMU imu1) {
         fl = m1;
@@ -24,19 +30,18 @@ public class Mecanum {
         imu.initialize(parameters);
     }
 
-    public boolean drive(double y, double x, double rx, boolean pressed) {
-        double angle = -imu.getAngularOrientation().firstAngle;
-        boolean calibrated = false;
+    public void reset(){
+        offset = imu.getAngularOrientation().firstAngle;
+    }
 
-        //Recalibrate imu angle
-        if (pressed) {
-            imu.initialize(parameters);
-            calibrated = true;
-        }
+    public void drive(double y, double x, double rx) {
+         currentAngle = -imu.getAngularOrientation().firstAngle;
+
+         currentAngle = AngleUnit.normalizeRadians(currentAngle - offset);
 
         //Mecanum math
-        double rotX = x * Math.cos(angle) - y * Math.sin(angle);
-        double rotY = x * Math.sin(angle) + y * Math.cos(angle);
+        double rotX = x * Math.cos(currentAngle) - y * Math.sin(currentAngle);
+        double rotY = x * Math.sin(currentAngle) + y * Math.cos(currentAngle);
 
         double d = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double flpwr = (rotY + rotX + rx) / d;
@@ -44,14 +49,9 @@ public class Mecanum {
         double frpwr = (rotY - rotX - rx) / d;
         double brpwr = (rotY + rotX - rx) / d;
 
-        fl.setPower(curve(flpwr));
-        bl.setPower(curve(blpwr));
-        fr.setPower(curve(frpwr));
-        br.setPower(curve(brpwr));
-        return calibrated;
-    }
-
-    private double curve(double pwr) {
-        return pwr;//(0.5 * Math.pow(pwr, 3)) + (0.5 * pwr);
+        fl.setPower(flpwr);
+        bl.setPower(blpwr);
+        fr.setPower(frpwr);
+        br.setPower(brpwr);
     }
 }

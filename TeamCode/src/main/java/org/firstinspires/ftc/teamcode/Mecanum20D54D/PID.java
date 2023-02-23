@@ -10,7 +10,7 @@ public class PID {
     double lastError;
     ElapsedTime timer = new ElapsedTime();
 
-    public PID(double kp, double ki, double kd) {
+    public PID (double kp, double ki, double kd) {
         p = kp;
         i = ki;
         d = kd;

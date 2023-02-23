@@ -35,7 +35,7 @@ public class SyntaxErrorMechanisms {
         ir.setPower(ip);
     }
     public void runPID(double target) {
-        double command = pid.update(l.getCurrentPosition(), target);
+        double command = pid.update(l.getCurrentPosition(), target) + 0.11;
 
         l.setPower(-command);
         r.setPower(command);
