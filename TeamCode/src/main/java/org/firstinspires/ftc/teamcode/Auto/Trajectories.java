@@ -7,9 +7,11 @@ import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySe
 
 public class Trajectories {
 
-    public static TrajectorySequence toHighPole;
+    public static TrajectorySequence toHighPoleLeft;
+    public static TrajectorySequence toHighPoleRight;
     public static TrajectorySequence toConeStack;
-    public static TrajectorySequence backToHighPole;
+    public static TrajectorySequence toLowPole;
+    public static TrajectorySequence fromLowToStack;
     public static TrajectorySequence parkLeft;
     public static TrajectorySequence parkMid;
     public static TrajectorySequence parkRight;
@@ -19,38 +21,60 @@ public class Trajectories {
         drive.setPoseEstimate(startPose);
 
         //Change trajectories only if needed
-        toHighPole = drive.trajectorySequenceBuilder(startPose)
+        toHighPoleLeft = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(12)
+                .turn(Math.toRadians(-5.5))
+                .forward(58)
+                .back(6)
+                .turn(Math.toRadians(-54))
+                .forward(7.75)
+//                .waitSeconds(0.1)
+//                .forward(3)
+                .waitSeconds(1)
+                .back(12)
+                .waitSeconds(0.5)
+                .turn(Math.toRadians(-63))
+                .build();
+
+        toHighPoleRight = drive.trajectorySequenceBuilder(startPose)
+                .strafeLeft(12)
                 .turn(Math.toRadians(-8))
-                .forward(52)
-                .turn(Math.toRadians(57))
+                .forward(58)
+                .back(6)
+                .turn(Math.toRadians(66))
                 .forward(11.5)
+                .waitSeconds(1)
+                .back(7)
                 .build();
 
-        toConeStack = drive.trajectorySequenceBuilder(toHighPole.end())
-                .back(1)
+        toConeStack = drive.trajectorySequenceBuilder(toHighPoleLeft.end())
+                .turn(Math.toRadians(146.5))
+                .forward(33.5)
+                .back(28)
+//                .back(1)
+//                .strafeLeft(2.5)
+//                .forward(47)
+                .build();
+
+        toLowPole = drive.trajectorySequenceBuilder(toConeStack.end())
+                .waitSeconds(.1)
                 .turn(Math.toRadians(-90))
-                .forward(4)
-                .strafeLeft(2.5)
-                .forward(47)
+                .forward(5)
                 .build();
 
-        backToHighPole = drive.trajectorySequenceBuilder(toConeStack.end())
-                .back(47)
-                .turn(Math.toRadians(90))
-                .forward(3)
+        fromLowToStack = drive.trajectorySequenceBuilder(toLowPole.end())
+                .back(10)
                 .build();
 
-        parkLeft = drive.trajectorySequenceBuilder(backToHighPole.end())
-                .strafeLeft(16)
+        parkLeft = drive.trajectorySequenceBuilder(toLowPole.end())
+                .back(27)
                 .build();
 
-        parkMid = drive.trajectorySequenceBuilder(backToHighPole.end())
-                .strafeRight(8)
+        parkMid = drive.trajectorySequenceBuilder(toLowPole.end())
                 .build();
 
-        parkRight = drive.trajectorySequenceBuilder(backToHighPole.end())
-                .strafeRight(36)
+        parkRight = drive.trajectorySequenceBuilder(toLowPole.end())
+                .forward(27)
                 .build();
     }
 }

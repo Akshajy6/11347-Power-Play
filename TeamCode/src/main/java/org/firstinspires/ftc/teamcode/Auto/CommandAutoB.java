@@ -25,8 +25,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name="Alex's funny auto")
-public class CommandAuto extends CommandOpMode {
+@Autonomous(name="FunnyAutoHAHA")
+public class CommandAutoB extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
     private CRServo il;
@@ -159,8 +159,8 @@ public class CommandAuto extends CommandOpMode {
                                 new WaitCommand(2650),
                                 new FourBarPID(fb, LOW + 85)
                         )
-                ),//This will cause the robot to park
-                new TrajectorySequenceCommand(drive, park)
+                )//,//This will cause the robot to park
+//                new TrajectorySequenceCommand(drive, park)
         ));
     }
 
