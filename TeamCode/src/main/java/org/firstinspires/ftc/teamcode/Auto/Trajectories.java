@@ -9,7 +9,8 @@ public class Trajectories {
 
     public static TrajectorySequence toHighPoleLeft;
     public static TrajectorySequence toHighPoleRight;
-    public static TrajectorySequence toConeStack;
+    public static TrajectorySequence toConeStackLeft;
+    public static TrajectorySequence toConeStackRight;
     public static TrajectorySequence toLowPole;
     public static TrajectorySequence fromLowToStack;
     public static TrajectorySequence parkLeft;
@@ -23,31 +24,33 @@ public class Trajectories {
         //Change trajectories only if needed
         toHighPoleLeft = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(12)
-                .turn(Math.toRadians(-5.5))
+                //.turn(Math.toRadians(-5.5))
                 .forward(58)
                 .back(6)
-                .turn(Math.toRadians(-54))
+                .turn(Math.toRadians(-58))
                 .forward(7.75)
 //                .waitSeconds(0.1)
 //                .forward(3)
                 .waitSeconds(1)
                 .back(12)
                 .waitSeconds(0.5)
-                .turn(Math.toRadians(-63))
+                .turn(Math.toRadians(-60))
                 .build();
 
         toHighPoleRight = drive.trajectorySequenceBuilder(startPose)
-                .strafeLeft(12)
-                .turn(Math.toRadians(-8))
+                .strafeRight(11)
+                //.turn(Math.toRadians(-8))
                 .forward(58)
                 .back(6)
-                .turn(Math.toRadians(66))
-                .forward(11.5)
+                .turn(Math.toRadians(58))
+                .forward(6.5)
                 .waitSeconds(1)
-                .back(7)
+                .back(12)
+                .waitSeconds(0.5)
+                .turn(Math.toRadians(50))
                 .build();
 
-        toConeStack = drive.trajectorySequenceBuilder(toHighPoleLeft.end())
+        toConeStackLeft = drive.trajectorySequenceBuilder(toHighPoleLeft.end())
                 .turn(Math.toRadians(146.5))
                 .forward(33.5)
                 .back(28)
@@ -56,7 +59,11 @@ public class Trajectories {
 //                .forward(47)
                 .build();
 
-        toLowPole = drive.trajectorySequenceBuilder(toConeStack.end())
+        toConeStackRight = drive.trajectorySequenceBuilder(toHighPoleRight.end())
+                .turn(Math.toRadians(-146.5))
+                .build();
+
+        toLowPole = drive.trajectorySequenceBuilder(toConeStackLeft.end())
                 .waitSeconds(.1)
                 .turn(Math.toRadians(-90))
                 .forward(5)
@@ -71,6 +78,8 @@ public class Trajectories {
                 .build();
 
         parkMid = drive.trajectorySequenceBuilder(toLowPole.end())
+                .forward(1)
+                .turn(1)
                 .build();
 
         parkRight = drive.trajectorySequenceBuilder(toLowPole.end())

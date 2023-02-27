@@ -25,7 +25,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name="FunnyAutoHAHA")
+@Autonomous(name="Right Auto (1 + Park)")
 public class CommandAutoB extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
@@ -141,7 +141,7 @@ public class CommandAutoB extends CommandOpMode {
         schedule(new SequentialCommandGroup(
                 new ParallelCommandGroup(
                         new InstantCommand(() -> {fb.reset();}),
-                        new TrajectorySequenceCommand(drive, Trajectories.toHighPoleLeft),
+                        new TrajectorySequenceCommand(drive, Trajectories.toHighPoleRight),
                         new SequentialCommandGroup(
                                 new WaitCommand(6000),
                                 new FourBarPID(fb, LOW),
@@ -157,10 +157,16 @@ public class CommandAutoB extends CommandOpMode {
                                     fb.runIntake(0);
                                 }),
                                 new WaitCommand(2650),
-                                new FourBarPID(fb, LOW + 85)
+                                new FourBarPID(fb, LOW + 100),
+                                new WaitCommand(1000),
+                                new FourBarPID(fb, 0),
+                                new InstantCommand(() -> {
+                                    l.setPower(0);
+                                    r.setPower(0);
+                                })
                         )
-                )//,//This will cause the robot to park
-//                new TrajectorySequenceCommand(drive, park)
+                ),//This will cause the robot to park
+                new TrajectorySequenceCommand(drive, park)
         ));
     }
 

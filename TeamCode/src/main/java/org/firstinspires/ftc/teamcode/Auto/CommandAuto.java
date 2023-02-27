@@ -25,7 +25,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name="Alex's funny auto")
+@Autonomous(name="Left Auto (1 + Park)")
 public class CommandAuto extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
@@ -157,7 +157,13 @@ public class CommandAuto extends CommandOpMode {
                                     fb.runIntake(0);
                                 }),
                                 new WaitCommand(2650),
-                                new FourBarPID(fb, LOW + 85)
+                                new FourBarPID(fb, LOW + 100),
+                                new WaitCommand(1000),
+                                new FourBarPID(fb, 0),
+                                new InstantCommand(() -> {
+                                    l.setPower(0);
+                                    r.setPower(0);
+                                })
                         )
                 ),//This will cause the robot to park
                 new TrajectorySequenceCommand(drive, park)
