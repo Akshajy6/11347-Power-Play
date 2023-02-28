@@ -25,8 +25,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name="Left Auto (1 + Park)")
-public class CommandAuto extends CommandOpMode {
+@Autonomous(name="Right Auto (1 + Park)")
+public class CommandAutoRight extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
     private CRServo il;
@@ -141,31 +141,40 @@ public class CommandAuto extends CommandOpMode {
         schedule(new SequentialCommandGroup(
                 new ParallelCommandGroup(
                         new InstantCommand(() -> {fb.reset();}),
-                        new TrajectorySequenceCommand(drive, Trajectories.toHighPoleLeft),
+                        new TrajectorySequenceCommand(drive, Trajectories.toHighPoleRight),
                         new SequentialCommandGroup(
-                                new WaitCommand(6000),
+                                new WaitCommand(3000),
                                 new FourBarPID(fb, LOW),
                                 new WaitCommand(1000),
-                                new FourBarPID(fb, HIGH).withTimeout(1000),
+                                new FourBarPID(fb, HIGH).withTimeout(2000),
                                 new WaitCommand(1000),
-                                new WaitCommand(600),
                                 new InstantCommand(() -> {
                                     fb.runIntake(1);
                                 }),
                                 new WaitCommand(500),
                                 new InstantCommand(() -> {
                                     fb.runIntake(0);
-                                }),
-                                new WaitCommand(2650),
-                                new FourBarPID(fb, LOW + 100),
-                                new WaitCommand(1000),
-                                new FourBarPID(fb, 0),
-                                new InstantCommand(() -> {
-                                    l.setPower(0);
-                                    r.setPower(0);
                                 })
                         )
-                ),//This will cause the robot to park
+                ),
+                new ParallelCommandGroup(
+                        new TrajectorySequenceCommand(drive, Trajectories.toConeStackRight),//goes to cone stack and intakes
+                        new SequentialCommandGroup(
+                                new WaitCommand(1000),//adjust
+                                new FourBarPID(fb, LOW),
+                                new WaitCommand(1500),//adjust
+                                new FourBarPID(fb, CONE),
+                                new WaitCommand(500),//adjust
+                                new InstantCommand(() -> {
+                                    fb.runIntake(-1);
+                                }),
+                                new WaitCommand(500),//adjust
+                                new InstantCommand(() -> {
+                                    fb.runIntake(0);
+                                })
+                        )
+
+                ),
                 new TrajectorySequenceCommand(drive, park)
         ));
     }

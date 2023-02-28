@@ -31,7 +31,7 @@ public class Mecanum {
     }
 
     public void reset(){
-        offset = imu.getAngularOrientation().firstAngle;
+        offset = -imu.getAngularOrientation().firstAngle;
     }
 
     public void drive(double y, double x, double rx) {
