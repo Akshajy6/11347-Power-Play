@@ -141,41 +141,48 @@ public class CommandAutoRight extends CommandOpMode {
         schedule(new SequentialCommandGroup(
                 new ParallelCommandGroup(
                         new InstantCommand(() -> {fb.reset();}),
-                        new TrajectorySequenceCommand(drive, Trajectories.toHighPoleRight),
+                        new TrajectorySequenceCommand(drive, Trajectories.spline),
                         new SequentialCommandGroup(
-                                new WaitCommand(3000),
-                                new FourBarPID(fb, LOW),
                                 new WaitCommand(1000),
-                                new FourBarPID(fb, HIGH).withTimeout(2000),
-                                new WaitCommand(1000),
+                                new FourBarPID(fb, HIGH + 50).withTimeout(1000),
                                 new InstantCommand(() -> {
                                     fb.runIntake(1);
                                 }),
-                                new WaitCommand(500),
+                                new WaitCommand(200),
                                 new InstantCommand(() -> {
                                     fb.runIntake(0);
-                                })
-                        )
-                ),
-                new ParallelCommandGroup(
-                        new TrajectorySequenceCommand(drive, Trajectories.toConeStackRight),//goes to cone stack and intakes
-                        new SequentialCommandGroup(
-                                new WaitCommand(1000),//adjust
-                                new FourBarPID(fb, LOW),
-                                new WaitCommand(1500),//adjust
-                                new FourBarPID(fb, CONE),
-                                new WaitCommand(500),//adjust
-                                new InstantCommand(() -> {
-                                    fb.runIntake(-1);
                                 }),
-                                new WaitCommand(500),//adjust
+                                new FourBarPID(fb, LOW - 50).withTimeout(1000),
+                                new WaitCommand(600),
+                                new FourBarPID(fb, CONE).withTimeout(1000),
+                                new WaitCommand(100),
+                                new InstantCommand(() -> {
+                                    fb.runIntake(1);
+                                }),
+                                new WaitCommand(300),
                                 new InstantCommand(() -> {
                                     fb.runIntake(0);
                                 })
                         )
+                )
+//                new ParallelCommandGroup(
+//                        new TrajectorySequenceCommand(drive, Trajectories.toConeStackRight),//goes to cone stack and intakes
+//                        new SequentialCommandGroup (
+//                                new FourBarPID(fb, MID),
+//                                new WaitCommand(1750),//adjust
+//                                new FourBarPID(fb, 200),
+//                                new WaitCommand(300),
+//                                new InstantCommand(() -> {
+//                                    fb.runIntake(-1);
+//                                }),
+//                                new WaitCommand(750),//adjust
+//                                new InstantCommand(() -> {
+//                                    fb.runIntake(0);
+//                                })
+//                        )
 
-                ),
-                new TrajectorySequenceCommand(drive, park)
+//                )
+//                new TrajectorySequenceCommand(drive, park)
         ));
     }
 
