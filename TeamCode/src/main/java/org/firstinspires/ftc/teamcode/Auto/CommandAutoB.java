@@ -25,8 +25,13 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name="Left Auto (1 + Park)")
-public class CommandAutoLeft extends CommandOpMode {
+<<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/AutoLeft.java
+@Autonomous(name="LEFT AUTO USE THIS ONE")
+public class AutoLeft extends CommandOpMode {
+========
+@Autonomous(name="Right Auto (1 + Park)")
+public class CommandAutoB extends CommandOpMode {
+>>>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto):TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/CommandAutoB.java
     private DcMotor l;
     private DcMotor r;
     private CRServo il;
@@ -141,32 +146,70 @@ public class CommandAutoLeft extends CommandOpMode {
         schedule(new SequentialCommandGroup(
                 new ParallelCommandGroup(
                         new InstantCommand(() -> {fb.reset();}),
-                        new TrajectorySequenceCommand(drive, Trajectories.toHighPoleLeft),
+                        new TrajectorySequenceCommand(drive, Trajectories.spline),
                         new SequentialCommandGroup(
+<<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/AutoLeft.java
+                                new WaitCommand(1000),
+                                new FourBarPID(fb, HIGH + 50).withTimeout(1000),
+========
                                 new WaitCommand(6000),
                                 new FourBarPID(fb, LOW),
                                 new WaitCommand(1000),
                                 new FourBarPID(fb, HIGH).withTimeout(1000),
                                 new WaitCommand(1000),
                                 new WaitCommand(600),
+>>>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto):TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/CommandAutoB.java
                                 new InstantCommand(() -> {
                                     fb.runIntake(1);
                                 }),
-                                new WaitCommand(500),
+                                new WaitCommand(200),
                                 new InstantCommand(() -> {
                                     fb.runIntake(0);
                                 }),
+<<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/AutoLeft.java
+                                new FourBarPID(fb, LOW - 50).withTimeout(1000),
+                                new WaitCommand(600),
+                                new FourBarPID(fb, CONE).withTimeout(1000),
+                                new WaitCommand(100),
+                                new InstantCommand(() -> {
+                                    fb.runIntake(1);
+                                }),
+                                new WaitCommand(300),
+========
                                 new WaitCommand(2650),
                                 new FourBarPID(fb, LOW + 100),
                                 new WaitCommand(1000),
                                 new FourBarPID(fb, 0),
+>>>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto):TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/CommandAutoB.java
                                 new InstantCommand(() -> {
                                     l.setPower(0);
                                     r.setPower(0);
                                 })
                         )
+<<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/AutoLeft.java
+                )
+//                new ParallelCommandGroup(
+//                        new TrajectorySequenceCommand(drive, Trajectories.toConeStackRight),//goes to cone stack and intakes
+//                        new SequentialCommandGroup (
+//                                new FourBarPID(fb, MID),
+//                                new WaitCommand(1750),//adjust
+//                                new FourBarPID(fb, 200),
+//                                new WaitCommand(300),
+//                                new InstantCommand(() -> {
+//                                    fb.runIntake(-1);
+//                                }),
+//                                new WaitCommand(750),//adjust
+//                                new InstantCommand(() -> {
+//                                    fb.runIntake(0);
+//                                })
+//                        )
+
+//                )
+//                new TrajectorySequenceCommand(drive, park)
+========
                 ),//This will cause the robot to park
                 new TrajectorySequenceCommand(drive, park)
+>>>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto):TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Auto/CommandAutoB.java
         ));
     }
 
