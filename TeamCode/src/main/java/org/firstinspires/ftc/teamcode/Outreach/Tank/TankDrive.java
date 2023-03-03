@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.Outreach.Tank;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class TankDrive {
-    private final double MAX_POWER = 1.0;
-    private final double DEADZONE = 0.1;
-
     private DcMotor[] motors = new DcMotor[4];
 
     public TankDrive(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight) {
@@ -16,14 +14,19 @@ public class TankDrive {
     }
 
     public void drive(double leftPower, double rightPower) {
-        if (Math.abs(leftPower) < DEADZONE) leftPower = 0;
-        if (Math.abs(rightPower) < DEADZONE) rightPower = 0;
-
-        leftPower *= MAX_POWER;
-        rightPower *= MAX_POWER;
-
-        for(int i = 0; i < motors.length; i++) {
-            motors[i].setPower((i % 2 == 0) ? leftPower : rightPower);
+        if (Math.abs(leftPower) > 0.1) {
+            motors[0].setPower(leftPower);
+            motors[2].setPower(leftPower);
+        } else {
+            motors[0].setPower(0);
+            motors[2].setPower(0);
+        }
+        if (Math.abs(rightPower) > 0.1) {
+            motors[1].setPower(rightPower);
+            motors[3].setPower(rightPower);
+        } else {
+            motors[1].setPower(0);
+            motors[3].setPower(0);
         }
     }
 }

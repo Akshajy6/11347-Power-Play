@@ -18,7 +18,7 @@ public class Trajectories {
     public static TrajectorySequence parkLeft;
     public static TrajectorySequence parkMid;
     public static TrajectorySequence parkRight;
-    public static Pose2d startPose = new Pose2d(-64, -40, Math.toRadians(0));
+    public static Pose2d startPose = new Pose2d(-64, 40, Math.toRadians(0));
 
     public static void generateTrajectories(SampleMecanumDrive drive) {
         drive.setPoseEstimate(startPose);
@@ -34,25 +34,17 @@ public class Trajectories {
                 .build();
 
         spline = drive.trajectorySequenceBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-6, -34, Math.toRadians(40)))
-                .lineToLinearHeading(new Pose2d(-12, -64, Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(-12, 37, Math.toRadians(320)))
+                .lineToLinearHeading(new Pose2d(-12, 60, Math.toRadians(90)))
                 .waitSeconds(0.75)
-                .lineToLinearHeading(new Pose2d(-6, -34, Math.toRadians(40)))
-                .lineToLinearHeading(new Pose2d(-12, -64, Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(-6, 37, Math.toRadians(320)))
+                .lineToLinearHeading(new Pose2d(-12, 60, Math.toRadians(90)))
                 .waitSeconds(0.75)
-                .lineToLinearHeading(new Pose2d(-6, -34, Math.toRadians(40)))
-                .lineToLinearHeading(new Pose2d(-12, -64, Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(-6, 37, Math.toRadians(320)))
+                .lineToLinearHeading(new Pose2d(-12, 60, Math.toRadians(90)))
                 .waitSeconds(0.75)
-                .lineToLinearHeading(new Pose2d(-6, -34, Math.toRadians(40)))
-//                .lineToLinearHeading(new Pose2d(-12, -64, Math.toRadians(270)))
-//                .lineToLinearHeading(new Pose2d(-6, -34, Math.toRadians(40)))
-//                .lineToLinearHeading(new Pose2d(-12, -64, Math.toRadians(270)))
-//                .lineToLinearHeading(new Pose2d(-6, -34, Math.toRadians(40)))
+                .lineToLinearHeading(new Pose2d(-6, 37, Math.toRadians(320)))
                 .build();
-//
-//        toConeStackRight = drive.trajectorySequenceBuilder(toHighPoleRight.end())
-//
-//                .build();
 
         toHighPoleLeft = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(12)

@@ -25,8 +25,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name="Right Auto (1 + Park)")
-public class CommandAutoRight extends CommandOpMode {
+@Autonomous(name="LEFT AUTO USE THIS ONE")
+public class AutoLeft extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
     private CRServo il;

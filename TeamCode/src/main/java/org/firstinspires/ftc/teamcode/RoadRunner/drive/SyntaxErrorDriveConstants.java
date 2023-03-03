@@ -22,7 +22,7 @@ public class SyntaxErrorDriveConstants {
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    public static final double TICKS_PER_REV = 537.6;
+    public static final double TICKS_PER_REV = 537.7;
     public static final double MAX_RPM = 312;
 
     /*
@@ -46,8 +46,8 @@ public class SyntaxErrorDriveConstants {
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 1.8898; // in
-    public static double GEAR_RATIO = 1 * 0.9913; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 12.55; // in
+    public static double GEAR_RATIO = 1.018112433787093; // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 12.52; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -55,7 +55,7 @@ public class SyntaxErrorDriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 0.017;
+    public static double kV = 0.0203;
     public static double kA = 0.00235;
     public static double kStatic = 0.01;
 
@@ -87,10 +87,10 @@ public class SyntaxErrorDriveConstants {
      * You are free to raise this on your own if you would like. It is best determined through experimentation.
      
      */
-    public static double MAX_VEL = 48; //36 - 40
-    public static double MAX_ACCEL = 48;
-    public static double MAX_ANG_VEL = Math.toRadians(220); //180
-    public static double MAX_ANG_ACCEL = Math.toRadians(220);
+    public static double MAX_VEL = 36; //36 - 40
+    public static double MAX_ACCEL = 36;
+    public static double MAX_ANG_VEL = Math.toRadians(180); //180
+    public static double MAX_ANG_ACCEL = Math.toRadians(180);
 
 
     public static double encoderTicksToInches(double ticks) {
