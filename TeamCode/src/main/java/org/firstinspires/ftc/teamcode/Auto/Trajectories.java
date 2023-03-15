@@ -11,14 +11,11 @@ public class Trajectories {
     public static TrajectorySequence toHighPoleRight;
     public static TrajectorySequence toConeStackLeft;
     public static TrajectorySequence toConeStackRight;
-<<<<<<< HEAD
     public static TrajectorySequence toShortPoleRight;
     public static TrajectorySequence backToConeStackRight;
     public static TrajectorySequence spline;
-=======
     public static TrajectorySequence toLowPole;
     public static TrajectorySequence fromLowToStack;
->>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto)
     public static TrajectorySequence parkLeft;
     public static TrajectorySequence parkMid;
     public static TrajectorySequence parkRight;
@@ -27,7 +24,6 @@ public class Trajectories {
     public static void generateTrajectories(SampleMecanumDrive drive) {
         drive.setPoseEstimate(startPose);
 
-<<<<<<< HEAD
         toHighPoleRight = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(11)
                 .forward(43)
@@ -51,19 +47,14 @@ public class Trajectories {
                 .lineToLinearHeading(new Pose2d(-6, 37, Math.toRadians(320)))
                 .build();
 
-=======
         //Change trajectories only if needed
->>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto)
         toHighPoleLeft = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(12)
                 //.turn(Math.toRadians(-5.5))
                 .forward(58)
                 .back(6)
-<<<<<<< HEAD
                 .turn(Math.toRadians(-60))
-=======
                 .turn(Math.toRadians(-58))
->>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto)
                 .forward(7.75)
 //                .waitSeconds(0.1)
 //                .forward(3)

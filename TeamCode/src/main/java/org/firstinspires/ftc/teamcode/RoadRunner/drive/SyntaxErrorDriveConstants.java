@@ -87,15 +87,9 @@ public class SyntaxErrorDriveConstants {
      * You are free to raise this on your own if you would like. It is best determined through experimentation.
      
      */
-<<<<<<< HEAD
-    public static double MAX_VEL = 36; //36 - 40
-    public static double MAX_ACCEL = 36;
-    public static double MAX_ANG_VEL = Math.toRadians(180); //180
-=======
     public static double MAX_VEL = 40;
     public static double MAX_ACCEL = 36;
     public static double MAX_ANG_VEL = Math.toRadians(180);
->>>>>>> parent of 0ea1c61 (Fixed IMU reset, working on auto)
     public static double MAX_ANG_ACCEL = Math.toRadians(180);
 
 
