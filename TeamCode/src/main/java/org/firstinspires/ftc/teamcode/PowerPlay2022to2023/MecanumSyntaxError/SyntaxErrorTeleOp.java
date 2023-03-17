@@ -1,21 +1,13 @@
-package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+package org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError;
 
-import static com.arcrobotics.ftclib.gamepad.GamepadKeys.Button.DPAD_UP;
-
-import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.PerpetualCommand;
-import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.exception.RobotCoreException;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.Mecanum20D54D.Mecanum;
 
 @TeleOp
 public class SyntaxErrorTeleOp extends LinearOpMode {

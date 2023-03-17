@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+package org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Auto.BulkCacheCommand;
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mecanum;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.Mecanum20D54D.Mecanum;
 
 @TeleOp
 public class CommandTeleOp extends CommandOpMode {
@@ -30,7 +30,6 @@ public class CommandTeleOp extends CommandOpMode {
     @Override
     public void initialize() {
         //Initializing hardware
-        GamepadEx driver = new GamepadEx(gamepad1);
         GamepadEx mechanism = new GamepadEx(gamepad2);
 
         DcMotor fl = hardwareMap.dcMotor.get("fl");

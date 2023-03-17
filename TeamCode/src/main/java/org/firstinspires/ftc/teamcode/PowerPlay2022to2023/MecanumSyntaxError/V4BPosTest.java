@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+package org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;

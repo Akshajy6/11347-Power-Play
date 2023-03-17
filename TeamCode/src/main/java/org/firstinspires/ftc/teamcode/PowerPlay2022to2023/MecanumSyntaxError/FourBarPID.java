@@ -1,9 +1,8 @@
-package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+package org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
-import org.firstinspires.ftc.teamcode.MecanumSyntaxError.SyntaxErrorMechanisms;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.Mecanum20D54D.Mechanisms;
 
 public class FourBarPID extends CommandBase {
 

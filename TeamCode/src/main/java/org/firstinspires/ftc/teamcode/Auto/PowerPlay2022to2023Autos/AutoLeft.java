@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
-
-import android.animation.IntArrayEvaluator;
+package org.firstinspires.ftc.teamcode.Auto.PowerPlay2022to2023Autos;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -12,10 +10,10 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
+import org.firstinspires.ftc.teamcode.Auto.TrajectorySequenceCommand;
 import org.firstinspires.ftc.teamcode.Auto.apriltag.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.MecanumSyntaxError.FourBarPID;
-import org.firstinspires.ftc.teamcode.MecanumSyntaxError.SyntaxErrorMechanisms;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError.FourBarPID;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError.SyntaxErrorMechanisms;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequence;
 import org.openftc.apriltag.AprilTagDetection;

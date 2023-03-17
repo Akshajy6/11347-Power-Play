@@ -1,10 +1,9 @@
-package org.firstinspires.ftc.teamcode.MecanumSyntaxError;
+package org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.PID;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.Mecanum20D54D.PID;
 
 public class SyntaxErrorMechanisms {
     final private DcMotor l;

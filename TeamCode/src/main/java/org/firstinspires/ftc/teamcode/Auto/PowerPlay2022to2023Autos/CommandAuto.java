@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
-
-import android.animation.IntArrayEvaluator;
+package org.firstinspires.ftc.teamcode.Auto.PowerPlay2022to2023Autos;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -12,10 +10,10 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Mecanum20D54D.Mechanisms;
+import org.firstinspires.ftc.teamcode.Auto.TrajectorySequenceCommand;
 import org.firstinspires.ftc.teamcode.Auto.apriltag.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.MecanumSyntaxError.FourBarPID;
-import org.firstinspires.ftc.teamcode.MecanumSyntaxError.SyntaxErrorMechanisms;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError.FourBarPID;
+import org.firstinspires.ftc.teamcode.PowerPlay2022to2023.MecanumSyntaxError.SyntaxErrorMechanisms;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequence;
 import org.openftc.apriltag.AprilTagDetection;
@@ -25,8 +23,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Autonomous(name="Right Auto (1 + Park)")
-public class CommandAutoB extends CommandOpMode {
+@Autonomous(name="Left Auto (1 + Park)")
+public class CommandAuto extends CommandOpMode {
     private DcMotor l;
     private DcMotor r;
     private CRServo il;
@@ -141,10 +139,8 @@ public class CommandAutoB extends CommandOpMode {
         schedule(new SequentialCommandGroup(
                 new ParallelCommandGroup(
                         new InstantCommand(() -> {fb.reset();}),
-                        new TrajectorySequenceCommand(drive, Trajectories.spline),
+                        new TrajectorySequenceCommand(drive, Trajectories.toHighPoleLeft),
                         new SequentialCommandGroup(
-                                new WaitCommand(1000),
-                                new FourBarPID(fb, HIGH + 50).withTimeout(1000),
                                 new WaitCommand(6000),
                                 new FourBarPID(fb, LOW),
                                 new WaitCommand(1000),
@@ -154,18 +150,10 @@ public class CommandAutoB extends CommandOpMode {
                                 new InstantCommand(() -> {
                                     fb.runIntake(1);
                                 }),
-                                new WaitCommand(200),
+                                new WaitCommand(500),
                                 new InstantCommand(() -> {
                                     fb.runIntake(0);
                                 }),
-                                new FourBarPID(fb, LOW - 50).withTimeout(1000),
-                                new WaitCommand(600),
-                                new FourBarPID(fb, CONE).withTimeout(1000),
-                                new WaitCommand(100),
-                                new InstantCommand(() -> {
-                                    fb.runIntake(1);
-                                }),
-                                new WaitCommand(300),
                                 new WaitCommand(2650),
                                 new FourBarPID(fb, LOW + 100),
                                 new WaitCommand(1000),
@@ -175,28 +163,9 @@ public class CommandAutoB extends CommandOpMode {
                                     r.setPower(0);
                                 })
                         )
-                )
-//                new ParallelCommandGroup(
-//                        new TrajectorySequenceCommand(drive, Trajectories.toConeStackRight),//goes to cone stack and intakes
-//                        new SequentialCommandGroup (
-//                                new FourBarPID(fb, MID),
-//                                new WaitCommand(1750),//adjust
-//                                new FourBarPID(fb, 200),
-//                                new WaitCommand(300),
-//                                new InstantCommand(() -> {
-//                                    fb.runIntake(-1);
-//                                }),
-//                                new WaitCommand(750),//adjust
-//                                new InstantCommand(() -> {
-//                                    fb.runIntake(0);
-//                                })
-//                        )
-
-//                )
-//                new TrajectorySequenceCommand(drive, park)
                 ),//This will cause the robot to park
                 new TrajectorySequenceCommand(drive, park)
-        );
+        ));
     }
 
     void tagToTelemetry(AprilTagDetection detection) {
