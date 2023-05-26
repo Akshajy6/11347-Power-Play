@@ -13,24 +13,25 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 /** After initializing the TeleOp, the class has to extend LinearOpMode in order to run as a TeleOp */
 public class ExampleSingleMotorTeleOp extends LinearOpMode {
 
-/** Using the public variable ExampleMotorProgramming, ExampleMotroProgramming is renamed to emp in order to allow it to be called easier */
+    /** Using the public variable ExampleMotorProgramming, ExampleMotroProgramming is renamed to emp in order to allow it to be called easier */
     ExampleSingleMotorProgramming emp;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
 /**     This creates a previous (p1) and current (c1) gamepad in order to detect
-        if the controller input is being pressed vs no longer being pressed */
+ if the controller input is being pressed vs no longer being pressed */
         Gamepad p1 = new Gamepad();
         Gamepad c1 = new Gamepad();
 
 /**     Defines ExampleMotor as a DcMotor and calls it from the hardwareMap
-        When labled/defined in the hardwareMap, its called ExampleMotor which depending
-        on how its named in the ""s it changes how it needs to be labled in the hardwareMap */
+ When labled/defined in the hardwareMap, its called ExampleMotor which depending
+ on how its named in the ""s it changes how it needs to be labled in the hardwareMap */
         DcMotor ExampleMotor = hardwareMap.dcMotor.get("ExampleMotor");
+        DcMotor ExampleMotor2 = hardwareMap.dcMotor.get("ExampleMotor2");
 
         //using the new name (emp) of ExampleMotorProgramming, it calls ExampleMotor from EMP */
-        emp = new ExampleSingleMotorProgramming(ExampleMotor);
+        emp = new ExampleSingleMotorProgramming(ExampleMotor, ExampleMotor2);
 
         Boolean pressed = false;
 
@@ -43,7 +44,9 @@ public class ExampleSingleMotorTeleOp extends LinearOpMode {
 /**     After the start button has been pressed, until the TeleOp is stopped, will run */
         while (opModeIsActive()) {
 /**         When the left trigger is pressed on gamepad1, it gives power to the motor defined in EMP */
-            emp.runMotor(gamepad1.left_trigger);
+            emp.runMotor(gamepad1.left_stick_y, gamepad1.right_stick_y);
+
+
 
 /**         Simply adds a line to be printed on the phone */
             telemetry.addLine("Example Motor Program Running");
