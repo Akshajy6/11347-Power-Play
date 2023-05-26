@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Outreach.Tank;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class TankDrive {
     private DcMotor[] motors = new DcMotor[4];

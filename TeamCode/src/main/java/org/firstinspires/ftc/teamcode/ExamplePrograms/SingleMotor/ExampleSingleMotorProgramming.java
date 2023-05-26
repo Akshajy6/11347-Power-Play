@@ -10,25 +10,19 @@ public class ExampleSingleMotorProgramming {
 /** Defines ExampleMotor as a DcMotor and makes it a public variable
     that can be edited later on in the TeleOp program(s) */
     public DcMotor ExampleMotor;
-    public DcMotor ExampleMotor2;
-
 
     //Creates a public /*class or variable?*/ containing the motor and defines em1 as the same as the ExampleMotor as not to reassign ExampleMotor
-    public ExampleSingleMotorProgramming(DcMotor em1, DcMotor em2) {
+    public ExampleSingleMotorProgramming(DcMotor em1) {
         //Sets ExampleMotor equal to em1
         ExampleMotor = em1;
-        ExampleMotor2 = em2;
-/**     Makes ExampleMotors to reset its encoder and sets the motor to run without its encoder */
+/**     Makes ExampleMotor to reset its encoder and sets the motor to run without its encoder */
         ExampleMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ExampleMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        ExampleMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ExampleMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     //Creates the callable /*class or variable?*/ defining power to be changed based on the amount the trigger is pressed in
-    public void runMotor(double power, double power2) {
+    public void runMotor(double power) {
 /**     Sets the power ExampleMotor is moving at based on the trigger during TeleOp */
         ExampleMotor.setPower(power);
-        ExampleMotor.setPower(-power2);
     }
 }
