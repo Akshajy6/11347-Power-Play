@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.ExamplePrograms.SingleMotor.ExampleSingleMotorProgramming;
-
 /** Initializes TeleOp and makes the class detected as a TeleOp class */
 @TeleOp
 
@@ -47,13 +45,16 @@ public class SwerveDriveTeleOp extends LinearOpMode {
 
 /**     After the start button has been pressed, until the TeleOp is stopped, will run */
         while (opModeIsActive()) {
+
+            float horizontalInput = gamepad1.left_stick_x;
+            float verticalInput = gamepad1.left_stick_y;
+
 /**         When the left trigger is pressed on gamepad1, it gives power to the motor defined in EMP */
             sdp.runMotor(gamepad1.left_stick_y, gamepad1.right_stick_y);
 
-
-
 /**         Simply adds a line to be printed on the phone */
-            telemetry.addLine("Example Motor Program Running");
+            telemetry.addLine("Y-axis" + gamepad1.left_stick_y);
+            telemetry.addLine("X-axis" + gamepad1.left_stick_x);
 /**         Updates the text on the screen so it will print */
             telemetry.update();
         }

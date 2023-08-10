@@ -24,21 +24,49 @@ public class SwerveDriveProgramming {
         RightBackSwerveMotor = br;
 /**     Makes ExampleMotors to reset its encoder and sets the motor to run without its encoder */
         LeftFrontSwerveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LeftFrontSwerveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LeftFrontSwerveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         LeftBackSwerveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LeftBackSwerveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LeftBackSwerveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         RightFrontSwerveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RightFrontSwerveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RightFrontSwerveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         RightBackSwerveMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RightBackSwerveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RightBackSwerveMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     //Creates the callable /*class or variable?*/ defining power to be changed based on the amount the trigger is pressed in
     public void runMotor(double power, double power2) {
 /**     Sets the power ExampleMotor is moving at based on the trigger during TeleOp */
-        LeftFrontSwerveMotor.setPower(power);
-        LeftBackSwerveMotor.setPower(power2);
+        LeftFrontSwerveMotor.setPower(power * 0.85);
+        LeftBackSwerveMotor.setPower(power2 * 0.85);
         RightFrontSwerveMotor.setPower(power);
         RightBackSwerveMotor.setPower(power2);
     }
+
+    public double leftFPosition() {
+        return LeftFrontSwerveMotor.getCurrentPosition();
+    }
+
+    public double leftBPosition() {
+        return LeftBackSwerveMotor.getCurrentPosition();
+    }
+
+    public double rightFPosition() {
+        return RightFrontSwerveMotor.getCurrentPosition();
+    }
+
+    public double rightBPosition() {
+        return RightBackSwerveMotor.getCurrentPosition();
+    }
+
+
+
+//    public void rotateModule(double rotX, double rotY) {
+//        LeftFrontSwerveMotor.setPower();
+//        LeftBackSwerveMotor.setPower();
+//        RightFrontSwerveMotor.setPower();
+//        RightBackSwerveMotor.setPower();
+//    }
 }
