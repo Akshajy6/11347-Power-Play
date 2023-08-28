@@ -17,7 +17,7 @@ public class ExampleMecanumDrivebase {
     private BNO055IMU imu;
 
 /**    Create the parameters for the imu to allow for the heading to be calculated later on */
-    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+
 
 /**    Creates the offset for the robots heading and creates the current angle the robot's headings at */
     private double offset = 0;
@@ -33,7 +33,11 @@ public class ExampleMecanumDrivebase {
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         imu = imu1;
         //Initializes the imu allowing for the calculation of the heading
-        imu.initialize(parameters);
+    }
+
+    /**    Resets the angle of the imu creating a new robot heading to be used in the math */
+    public void reset() {
+        offset = imu.getAngularOrientation().firstAngle;
     }
 
 /**    The math allowing for the heading to be calculated and then the motors powered to allow for field-centric movement
@@ -56,10 +60,5 @@ public class ExampleMecanumDrivebase {
         frontRight.setPower(frontRightPower);
         backLeft.setPower(backLeftPower);
         backRight.setPower(backRightPower);
-    }
-
-/**    Resets the angle of the imu creating a new robot heading to be used in the math */
-    public void reset() {
-        offset = imu.getAngularOrientation().firstAngle;
     }
 }
